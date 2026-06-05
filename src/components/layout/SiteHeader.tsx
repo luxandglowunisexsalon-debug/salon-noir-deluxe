@@ -6,9 +6,11 @@ import { SALON_CONFIG } from "@/lib/salon-config";
 const nav = [
   { to: "/", label: "House" },
   { to: "/services", label: "Services" },
-  { to: "/about", label: "Heritage" },
+  { to: "/pricing", label: "Pricing" },
+  { to: "/gallery", label: "Gallery" },
+  { to: "/loyalty", label: "Circle" },
+  { to: "/blog", label: "Journal" },
   { to: "/contact", label: "Visit" },
-  { to: "/dashboard", label: "Members" },
 ];
 
 export function SiteHeader() {
@@ -27,14 +29,14 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-9 md:flex">
+        <nav className="hidden items-center gap-7 lg:flex">
           {nav.map((n) => {
             const active = path === n.to;
             return (
               <Link
                 key={n.to}
                 to={n.to}
-                className={`text-[13px] tracking-[0.2em] uppercase transition-colors ${
+                className={`text-[11px] tracking-[0.2em] uppercase transition-colors ${
                   active ? "text-charcoal" : "text-muted-foreground hover:text-charcoal"
                 }`}
               >
@@ -44,7 +46,7 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-3">
           <Link
             to="/admin"
             className="text-[11px] tracking-[0.2em] uppercase text-muted-foreground hover:text-charcoal"
@@ -61,7 +63,7 @@ export function SiteHeader() {
 
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden text-charcoal"
+          className="lg:hidden text-charcoal"
           aria-label="Toggle menu"
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -69,7 +71,7 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <div className="border-t border-border bg-ivory md:hidden">
+        <div className="border-t border-border bg-ivory lg:hidden">
           <div className="flex flex-col px-5 py-4">
             {nav.map((n) => (
               <Link
@@ -81,13 +83,10 @@ export function SiteHeader() {
                 {n.label}
               </Link>
             ))}
-            <Link
-              to="/admin"
-              onClick={() => setOpen(false)}
-              className="py-3 text-sm tracking-[0.2em] uppercase text-muted-foreground"
-            >
-              Admin
-            </Link>
+            <Link to="/reviews" onClick={() => setOpen(false)} className="py-3 text-sm tracking-[0.2em] uppercase text-charcoal">Reviews</Link>
+            <Link to="/promotions" onClick={() => setOpen(false)} className="py-3 text-sm tracking-[0.2em] uppercase text-charcoal">Offers</Link>
+            <Link to="/dashboard" onClick={() => setOpen(false)} className="py-3 text-sm tracking-[0.2em] uppercase text-charcoal">Members</Link>
+            <Link to="/admin" onClick={() => setOpen(false)} className="py-3 text-sm tracking-[0.2em] uppercase text-muted-foreground">Admin</Link>
             <Link
               to="/booking"
               onClick={() => setOpen(false)}

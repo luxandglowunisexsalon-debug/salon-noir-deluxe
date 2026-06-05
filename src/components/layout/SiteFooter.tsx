@@ -18,21 +18,23 @@ export function SiteFooter() {
           <p className="eyebrow">House</p>
           <ul className="mt-4 space-y-2 text-sm">
             <li><Link to="/services" className="hover:text-charcoal text-muted-foreground">Services</Link></li>
-            <li><Link to="/about" className="hover:text-charcoal text-muted-foreground">Heritage</Link></li>
-            <li><Link to="/contact" className="hover:text-charcoal text-muted-foreground">Visit</Link></li>
-            <li><Link to="/booking" className="hover:text-charcoal text-muted-foreground">Reserve</Link></li>
+            <li><Link to="/pricing" className="hover:text-charcoal text-muted-foreground">Pricing</Link></li>
+            <li><Link to="/gallery" className="hover:text-charcoal text-muted-foreground">Gallery</Link></li>
+            <li><Link to="/reviews" className="hover:text-charcoal text-muted-foreground">Reviews</Link></li>
+            <li><Link to="/blog" className="hover:text-charcoal text-muted-foreground">Journal</Link></li>
           </ul>
         </div>
 
         <div>
           <p className="eyebrow">Concierge</p>
           <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-            <li>{SALON_CONFIG.phone}</li>
+            <li><Link to="/loyalty" className="hover:text-charcoal">The Vale Circle</Link></li>
+            <li><Link to="/promotions" className="hover:text-charcoal">Offers</Link></li>
+            <li><Link to="/contact" className="hover:text-charcoal">Visit</Link></li>
+            <li className="pt-3 text-charcoal">{SALON_CONFIG.phone}</li>
             <li>{SALON_CONFIG.email}</li>
             <li>WhatsApp {SALON_CONFIG.whatsapp}</li>
-            <li className="pt-2">
-              <span className="text-charcoal">{SALON_CONFIG.social.instagram}</span>
-            </li>
+            <li className="pt-2 text-charcoal">{SALON_CONFIG.social.instagram}</li>
           </ul>
         </div>
       </div>
