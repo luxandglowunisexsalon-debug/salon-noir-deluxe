@@ -1,5 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
+import { useAuth } from "@/lib/auth-context";
+import { ACCESS_LEVELS } from "@/lib/auth-types";
 import { SALON_CONFIG } from "@/lib/salon-config";
 import {
   adminMetrics,
@@ -21,7 +24,11 @@ export const Route = createFileRoute("/admin")({
       { name: "robots", content: "noindex" },
     ],
   }),
-  component: AdminDashboard,
+  component: () => (
+    <ProtectedRoute role="admin">
+      <AdminDashboard />
+    </ProtectedRoute>
+  ),
 });
 
 const tabs = [

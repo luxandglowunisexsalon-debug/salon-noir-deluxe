@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { SALON_CONFIG } from "@/lib/salon-config";
 import {
   member,
@@ -52,7 +53,11 @@ export const Route = createFileRoute("/dashboard")({
       { name: "description", content: "Your private members' diary, rewards and grooming history." },
     ],
   }),
-  component: DashboardPage,
+  component: () => (
+    <ProtectedRoute role="customer">
+      <DashboardPage />
+    </ProtectedRoute>
+  ),
 });
 
 type SectionId =
