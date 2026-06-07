@@ -14,7 +14,7 @@ import {
 } from "@/lib/mock-data";
 import {
   LayoutDashboard, Calendar, Users, Star, Gift, Tag, Scissors,
-  Image as ImageIcon, Instagram, Settings, TrendingUp,
+  Image as ImageIcon, Instagram, Settings, TrendingUp, ShieldCheck, LogOut, Mail,
 } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
@@ -41,6 +41,7 @@ const tabs = [
   { id: "pricing", label: "Pricing", icon: Scissors },
   { id: "gallery", label: "Gallery", icon: ImageIcon },
   { id: "instagram", label: "Instagram", icon: Instagram },
+  { id: "admins", label: "Admin Access", icon: ShieldCheck },
   { id: "settings", label: "Settings", icon: Settings },
 ] as const;
 
@@ -48,6 +49,8 @@ type TabId = (typeof tabs)[number]["id"];
 
 function AdminDashboard() {
   const [tab, setTab] = useState<TabId>("overview");
+  const { session, signOut } = useAuth();
+  const initial = session?.profile.full_name?.[0] || "A";
 
   return (
     <div className="flex min-h-screen bg-ivory">
@@ -83,7 +86,13 @@ function AdminDashboard() {
             <Link to="/" className="text-xs tracking-[0.2em] uppercase text-muted-foreground hover:text-charcoal">
               View Site →
             </Link>
-            <div className="grid h-9 w-9 place-items-center rounded-full bg-charcoal font-display text-sm text-ivory">A</div>
+            <button
+              onClick={signOut}
+              className="hidden items-center gap-1.5 text-xs tracking-[0.2em] uppercase text-muted-foreground hover:text-charcoal sm:flex"
+            >
+              <LogOut className="h-3.5 w-3.5" /> Sign out
+            </button>
+            <div className="grid h-9 w-9 place-items-center rounded-full bg-charcoal font-display text-sm text-ivory" title={session?.profile.full_name}>{initial}</div>
           </div>
         </header>
 
@@ -112,6 +121,7 @@ function AdminDashboard() {
           {tab === "pricing" && <PricingTab />}
           {tab === "gallery" && <GalleryTab />}
           {tab === "instagram" && <InstagramTab />}
+          {tab === "admins" && <AdminsTab />}
           {tab === "settings" && <SettingsTab />}
         </main>
       </div>
