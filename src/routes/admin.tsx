@@ -463,8 +463,7 @@ function AdminsTab() {
     <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr]">
       <Card title="Invite a new admin">
         <form onSubmit={invite} className="space-y-4">
-          <Field label="Email address" defaultValue="" />
-          <input type="hidden" />
+          <p className="eyebrow">Email address</p>
           <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
             <input
               type="email"
