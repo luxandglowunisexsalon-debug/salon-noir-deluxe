@@ -1,7 +1,8 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { Menu, X, UserRound } from "lucide-react";
 import { useState } from "react";
 import { SALON_CONFIG } from "@/lib/salon-config";
+import { useAuth } from "@/lib/auth-context";
 
 const nav = [
   { to: "/", label: "House" },
@@ -16,6 +17,8 @@ const nav = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
+  const { isAuthenticated, role, session } = useAuth();
+  const initial = session?.profile.full_name?.[0] || "G";
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-ivory/85 backdrop-blur-xl">
@@ -46,13 +49,23 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <div className="hidden lg:flex items-center gap-3">
-          <Link
-            to="/admin"
-            className="text-[11px] tracking-[0.2em] uppercase text-muted-foreground hover:text-charcoal"
-          >
-            Admin
-          </Link>
+        <div className="hidden lg:flex items-center gap-4">
+          {isAuthenticated ? (
+            <Link
+              to={role === "admin" ? "/admin" : "/dashboard"}
+              className="flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase text-charcoal hover:text-champagne-deep"
+            >
+              <span className="grid h-8 w-8 place-items-center rounded-full bg-charcoal font-display text-xs text-ivory">{initial}</span>
+              {role === "admin" ? "Console" : "My Lounge"}
+            </Link>
+          ) : (
+            <Link
+              to="/auth/login"
+              className="flex items-center gap-1.5 text-[11px] tracking-[0.2em] uppercase text-muted-foreground hover:text-charcoal"
+            >
+              <UserRound className="h-3.5 w-3.5" /> Sign in
+            </Link>
+          )}
           <Link
             to="/booking"
             className="rounded-full border border-charcoal bg-charcoal px-5 py-2.5 text-[12px] tracking-[0.2em] uppercase text-ivory transition hover:bg-transparent hover:text-charcoal"
@@ -85,8 +98,19 @@ export function SiteHeader() {
             ))}
             <Link to="/reviews" onClick={() => setOpen(false)} className="py-3 text-sm tracking-[0.2em] uppercase text-charcoal">Reviews</Link>
             <Link to="/promotions" onClick={() => setOpen(false)} className="py-3 text-sm tracking-[0.2em] uppercase text-charcoal">Offers</Link>
-            <Link to="/dashboard" onClick={() => setOpen(false)} className="py-3 text-sm tracking-[0.2em] uppercase text-charcoal">Members</Link>
-            <Link to="/admin" onClick={() => setOpen(false)} className="py-3 text-sm tracking-[0.2em] uppercase text-muted-foreground">Admin</Link>
+            {isAuthenticated ? (
+              <>
+                <Link to={role === "admin" ? "/admin" : "/dashboard"} onClick={() => setOpen(false)} className="py-3 text-sm tracking-[0.2em] uppercase text-charcoal">
+                  {role === "admin" ? "Admin Console" : "Members' Lounge"}
+                </Link>
+                <Link to="/auth/logout" onClick={() => setOpen(false)} className="py-3 text-sm tracking-[0.2em] uppercase text-muted-foreground">Sign Out</Link>
+              </>
+            ) : (
+              <>
+                <Link to="/auth/login" onClick={() => setOpen(false)} className="py-3 text-sm tracking-[0.2em] uppercase text-charcoal">Sign In</Link>
+                <Link to="/auth/register" onClick={() => setOpen(false)} className="py-3 text-sm tracking-[0.2em] uppercase text-muted-foreground">Join</Link>
+              </>
+            )}
             <Link
               to="/booking"
               onClick={() => setOpen(false)}
