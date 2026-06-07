@@ -22,6 +22,13 @@ import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthWelcomeRouteImport } from './routes/auth.welcome'
+import { Route as AuthVerifyEmailRouteImport } from './routes/auth.verify-email'
+import { Route as AuthResetPasswordRouteImport } from './routes/auth.reset-password'
+import { Route as AuthRegisterRouteImport } from './routes/auth.register'
+import { Route as AuthLogoutRouteImport } from './routes/auth.logout'
+import { Route as AuthLoginRouteImport } from './routes/auth.login'
+import { Route as AuthForgotPasswordRouteImport } from './routes/auth.forgot-password'
 
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
@@ -88,6 +95,41 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthWelcomeRoute = AuthWelcomeRouteImport.update({
+  id: '/auth/welcome',
+  path: '/auth/welcome',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthVerifyEmailRoute = AuthVerifyEmailRouteImport.update({
+  id: '/auth/verify-email',
+  path: '/auth/verify-email',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthResetPasswordRoute = AuthResetPasswordRouteImport.update({
+  id: '/auth/reset-password',
+  path: '/auth/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRegisterRoute = AuthRegisterRouteImport.update({
+  id: '/auth/register',
+  path: '/auth/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthLogoutRoute = AuthLogoutRouteImport.update({
+  id: '/auth/logout',
+  path: '/auth/logout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/auth/login',
+  path: '/auth/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthForgotPasswordRoute = AuthForgotPasswordRouteImport.update({
+  id: '/auth/forgot-password',
+  path: '/auth/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -103,6 +145,13 @@ export interface FileRoutesByFullPath {
   '/promotions': typeof PromotionsRoute
   '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
+  '/auth/forgot-password': typeof AuthForgotPasswordRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/logout': typeof AuthLogoutRoute
+  '/auth/register': typeof AuthRegisterRoute
+  '/auth/reset-password': typeof AuthResetPasswordRoute
+  '/auth/verify-email': typeof AuthVerifyEmailRoute
+  '/auth/welcome': typeof AuthWelcomeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -118,6 +167,13 @@ export interface FileRoutesByTo {
   '/promotions': typeof PromotionsRoute
   '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
+  '/auth/forgot-password': typeof AuthForgotPasswordRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/logout': typeof AuthLogoutRoute
+  '/auth/register': typeof AuthRegisterRoute
+  '/auth/reset-password': typeof AuthResetPasswordRoute
+  '/auth/verify-email': typeof AuthVerifyEmailRoute
+  '/auth/welcome': typeof AuthWelcomeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -134,6 +190,13 @@ export interface FileRoutesById {
   '/promotions': typeof PromotionsRoute
   '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
+  '/auth/forgot-password': typeof AuthForgotPasswordRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/logout': typeof AuthLogoutRoute
+  '/auth/register': typeof AuthRegisterRoute
+  '/auth/reset-password': typeof AuthResetPasswordRoute
+  '/auth/verify-email': typeof AuthVerifyEmailRoute
+  '/auth/welcome': typeof AuthWelcomeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -151,6 +214,13 @@ export interface FileRouteTypes {
     | '/promotions'
     | '/reviews'
     | '/services'
+    | '/auth/forgot-password'
+    | '/auth/login'
+    | '/auth/logout'
+    | '/auth/register'
+    | '/auth/reset-password'
+    | '/auth/verify-email'
+    | '/auth/welcome'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -166,6 +236,13 @@ export interface FileRouteTypes {
     | '/promotions'
     | '/reviews'
     | '/services'
+    | '/auth/forgot-password'
+    | '/auth/login'
+    | '/auth/logout'
+    | '/auth/register'
+    | '/auth/reset-password'
+    | '/auth/verify-email'
+    | '/auth/welcome'
   id:
     | '__root__'
     | '/'
@@ -181,6 +258,13 @@ export interface FileRouteTypes {
     | '/promotions'
     | '/reviews'
     | '/services'
+    | '/auth/forgot-password'
+    | '/auth/login'
+    | '/auth/logout'
+    | '/auth/register'
+    | '/auth/reset-password'
+    | '/auth/verify-email'
+    | '/auth/welcome'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -197,6 +281,13 @@ export interface RootRouteChildren {
   PromotionsRoute: typeof PromotionsRoute
   ReviewsRoute: typeof ReviewsRoute
   ServicesRoute: typeof ServicesRoute
+  AuthForgotPasswordRoute: typeof AuthForgotPasswordRoute
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthLogoutRoute: typeof AuthLogoutRoute
+  AuthRegisterRoute: typeof AuthRegisterRoute
+  AuthResetPasswordRoute: typeof AuthResetPasswordRoute
+  AuthVerifyEmailRoute: typeof AuthVerifyEmailRoute
+  AuthWelcomeRoute: typeof AuthWelcomeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -292,6 +383,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/welcome': {
+      id: '/auth/welcome'
+      path: '/auth/welcome'
+      fullPath: '/auth/welcome'
+      preLoaderRoute: typeof AuthWelcomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/verify-email': {
+      id: '/auth/verify-email'
+      path: '/auth/verify-email'
+      fullPath: '/auth/verify-email'
+      preLoaderRoute: typeof AuthVerifyEmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/reset-password': {
+      id: '/auth/reset-password'
+      path: '/auth/reset-password'
+      fullPath: '/auth/reset-password'
+      preLoaderRoute: typeof AuthResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/register': {
+      id: '/auth/register'
+      path: '/auth/register'
+      fullPath: '/auth/register'
+      preLoaderRoute: typeof AuthRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/logout': {
+      id: '/auth/logout'
+      path: '/auth/logout'
+      fullPath: '/auth/logout'
+      preLoaderRoute: typeof AuthLogoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/forgot-password': {
+      id: '/auth/forgot-password'
+      path: '/auth/forgot-password'
+      fullPath: '/auth/forgot-password'
+      preLoaderRoute: typeof AuthForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -309,6 +449,13 @@ const rootRouteChildren: RootRouteChildren = {
   PromotionsRoute: PromotionsRoute,
   ReviewsRoute: ReviewsRoute,
   ServicesRoute: ServicesRoute,
+  AuthForgotPasswordRoute: AuthForgotPasswordRoute,
+  AuthLoginRoute: AuthLoginRoute,
+  AuthLogoutRoute: AuthLogoutRoute,
+  AuthRegisterRoute: AuthRegisterRoute,
+  AuthResetPasswordRoute: AuthResetPasswordRoute,
+  AuthVerifyEmailRoute: AuthVerifyEmailRoute,
+  AuthWelcomeRoute: AuthWelcomeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
