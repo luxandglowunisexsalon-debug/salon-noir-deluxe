@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { useState } from "react";
 import { AuthShell, Field, PrimaryButton } from "@/components/auth/AuthShell";
+import { PasswordField } from "@/components/auth/PasswordField";
 import { useAuth } from "@/lib/auth-context";
 
 export const Route = createFileRoute("/auth/login")({
@@ -45,7 +46,7 @@ function LoginPage() {
     >
       <form onSubmit={submit} className="space-y-5">
         <Field label="Email" type="email" autoComplete="email" value={email} onChange={setEmail} required placeholder="you@domain.com" />
-        <Field label="Password" type="password" autoComplete="current-password" value={password} onChange={setPassword} required placeholder="••••••••" />
+        <PasswordField label="Password" autoComplete="current-password" value={password} onChange={setPassword} required placeholder="••••••••" />
         <div className="flex items-center justify-between text-xs">
           <label className="flex items-center gap-2 text-muted-foreground">
             <input type="checkbox" className="h-3.5 w-3.5 accent-charcoal" /> Remember me
