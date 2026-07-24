@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { AuthShell, Field, PrimaryButton } from "@/components/auth/AuthShell";
+import { PasswordField, isPasswordStrong } from "@/components/auth/PasswordField";
 import { useAuth } from "@/lib/auth-context";
 import { services } from "@/lib/mock-data";
 
@@ -35,7 +36,11 @@ function RegisterPage() {
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    setErr(null); setLoading(true);
+    setErr(null);
+    if (!isPasswordStrong(form.password)) {
+      return setErr("Please satisfy all password requirements.");
+    }
+    setLoading(true);
     try {
       await signUp(form);
       navigate({ to: "/auth/verify-email" });
@@ -65,8 +70,15 @@ function RegisterPage() {
             <Field label="Full name" value={form.full_name} onChange={(v) => setForm({ ...form, full_name: v })} required placeholder="James Whitmore" autoComplete="name" />
             <Field label="Email" type="email" value={form.email} onChange={(v) => setForm({ ...form, email: v })} required placeholder="you@domain.com" autoComplete="email" />
             <Field label="Phone (UK)" type="tel" value={form.phone} onChange={(v) => setForm({ ...form, phone: v })} required placeholder="+44 7700 900000" autoComplete="tel" />
-            <Field label="Password" type="password" value={form.password} onChange={(v) => setForm({ ...form, password: v })} required placeholder="Minimum 8 characters" autoComplete="new-password" />
-            <PrimaryButton type="submit">Continue</PrimaryButton>
+            <PasswordField
+              label="Password"
+              value={form.password}
+              onChange={(v) => setForm({ ...form, password: v })}
+              required
+              placeholder="Create a strong password"
+              showStrength
+            />
+            <PrimaryButton type="submit" disabled={!isPasswordStrong(form.password)}>Continue</PrimaryButton>
           </>
         ) : (
           <>
