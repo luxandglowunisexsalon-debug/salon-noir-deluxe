@@ -2,12 +2,10 @@ import { createFileRoute, Link, useNavigate, useSearch } from "@tanstack/react-r
 import { useState } from "react";
 import { AuthShell, Field, PrimaryButton } from "@/components/auth/AuthShell";
 import { useAuth } from "@/lib/auth-context";
-import type { Role } from "@/lib/auth-types";
 
 export const Route = createFileRoute("/auth/login")({
   validateSearch: (s: Record<string, unknown>) => ({
     redirect: typeof s.redirect === "string" ? s.redirect : undefined,
-    role: (s.role === "admin" ? "admin" : "customer") as Role,
   }),
   head: () => ({ meta: [{ title: "Sign In — Hawthorne & Vale" }] }),
   component: LoginPage,
@@ -17,7 +15,6 @@ function LoginPage() {
   const { signIn } = useAuth();
   const navigate = useNavigate();
   const search = useSearch({ from: "/auth/login" });
-  const [role, setRole] = useState<Role>(search.role);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState<string | null>(null);
@@ -27,8 +24,9 @@ function LoginPage() {
     e.preventDefault();
     setErr(null); setLoading(true);
     try {
-      await signIn(email, password, role);
-      navigate({ to: search.redirect || (role === "admin" ? "/admin" : "/dashboard") });
+      const s = await signIn(email, password);
+      const dest = search.redirect || (s.user.role === "admin" ? "/admin" : "/dashboard");
+      navigate({ to: dest });
     } catch (e: any) { setErr(e.message); }
     finally { setLoading(false); }
   }
@@ -45,18 +43,6 @@ function LoginPage() {
         </p>
       }
     >
-      <div className="mb-6 inline-flex rounded-full border border-border bg-cream p-1 text-[11px] tracking-[0.2em] uppercase">
-        {(["customer", "admin"] as Role[]).map((r) => (
-          <button
-            key={r}
-            onClick={() => setRole(r)}
-            className={`rounded-full px-4 py-2 transition ${role === r ? "bg-charcoal text-ivory" : "text-muted-foreground"}`}
-          >
-            {r === "customer" ? "Member" : "House Admin"}
-          </button>
-        ))}
-      </div>
-
       <form onSubmit={submit} className="space-y-5">
         <Field label="Email" type="email" autoComplete="email" value={email} onChange={setEmail} required placeholder="you@domain.com" />
         <Field label="Password" type="password" autoComplete="current-password" value={password} onChange={setPassword} required placeholder="••••••••" />
@@ -67,14 +53,8 @@ function LoginPage() {
           <Link to="/auth/forgot-password" className="text-charcoal hover:underline">Forgot password?</Link>
         </div>
         {err && <p className="rounded border border-destructive/30 bg-destructive/5 px-3 py-2 text-xs text-destructive">{err}</p>}
-        <PrimaryButton loading={loading}>{role === "admin" ? "Enter Admin Console" : "Enter Members' Lounge"}</PrimaryButton>
+        <PrimaryButton loading={loading}>Sign in</PrimaryButton>
       </form>
-
-      <div className="mt-6 rounded border border-dashed border-champagne/50 bg-cream/50 px-4 py-3 text-[11px] leading-relaxed text-muted-foreground">
-        <p className="eyebrow mb-1">Demo credentials</p>
-        Member · member@hawthorneandvale.co.uk / member123<br />
-        Admin · admin@hawthorneandvale.co.uk / admin123
-      </div>
     </AuthShell>
   );
 }
