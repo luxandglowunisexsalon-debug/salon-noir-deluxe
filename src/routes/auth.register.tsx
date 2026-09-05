@@ -5,7 +5,7 @@ import { PasswordField, isPasswordStrong } from "@/components/auth/PasswordField
 import { useAuth } from "@/lib/auth-context";
 import { services } from "@/lib/mock-data";
 
-const STYLISTS = ["Marcus Vale", "Sebastian Hawthorne", "Oliver Finch", "No preference"];
+const STYLISTS = ["Amira Khan", "Daniel Reyes", "Sofia Lane", "No preference"];
 
 export const Route = createFileRoute("/auth/register")({
   head: () => ({ meta: [{ title: "Join — Lux & Glow" }] }),
