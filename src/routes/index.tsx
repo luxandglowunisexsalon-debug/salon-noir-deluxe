@@ -16,12 +16,51 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: SALON_CONFIG.seo.title },
       { name: "description", content: SALON_CONFIG.seo.description },
+      { name: "keywords", content: SALON_CONFIG.seo.keywords },
       { property: "og:title", content: SALON_CONFIG.seo.title },
       { property: "og:description", content: SALON_CONFIG.seo.description },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://noble-manor-haven.lovable.app/" },
+    ],
+    links: [{ rel: "canonical", href: "https://noble-manor-haven.lovable.app/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "HairSalon",
+          name: SALON_CONFIG.name,
+          description: SALON_CONFIG.seo.description,
+          url: "https://noble-manor-haven.lovable.app/",
+          telephone: SALON_CONFIG.phone,
+          priceRange: "££",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: SALON_CONFIG.seo.streetAddress,
+            addressLocality: SALON_CONFIG.seo.locality,
+            addressRegion: SALON_CONFIG.seo.region,
+            postalCode: SALON_CONFIG.seo.postalCode,
+            addressCountry: SALON_CONFIG.seo.country,
+          },
+          areaServed: ["Ashford", "Staines-upon-Thames", "Feltham", "Sunbury", "Stanwell"],
+          openingHoursSpecification: [
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+              opens: "10:00",
+              closes: "19:00",
+            },
+            { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "09:30", closes: "19:00" },
+            { "@type": "OpeningHoursSpecification", dayOfWeek: "Sunday", opens: "10:00", closes: "18:00" },
+          ],
+          sameAs: [SALON_CONFIG.googleBusiness],
+        }),
+      },
     ],
   }),
   component: Home,
 });
+
 
 function Home() {
   const featured = services.filter((s) => s.featured);
