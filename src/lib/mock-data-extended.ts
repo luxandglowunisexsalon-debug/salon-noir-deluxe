@@ -51,7 +51,7 @@ export const membershipPlans = [
 
 export const packageDeals = [
   {
-    name: "The Mayfair Trio",
+    name: "The Ashford Trio",
     price: 175,
     saving: 25,
     items: ["Signature Master Cut", "Hot-Towel Shave", "Beard Sculpt"],
@@ -79,7 +79,7 @@ export const groomPackages = [
     includes: ["Pre-wedding consultation", "Day-of grooming", "Champagne service"],
   },
   {
-    name: "The Mayfair Wedding",
+    name: "The Ashford Wedding",
     price: 540,
     duration: "Full morning",
     body: "Private suite for the groom, best man and father. The signature offer.",
@@ -90,7 +90,7 @@ export const groomPackages = [
     price: 980,
     duration: "On location",
     body: "Our master barber travels to your country estate or London hotel.",
-    includes: ["Up to six gentlemen", "On-site service", "Travel within M25", "Bespoke aftercare kits"],
+    includes: ["Up to six clients", "On-site service", "Travel within M25", "Bespoke aftercare kits"],
   },
 ];
 
@@ -98,7 +98,7 @@ export const groomPackages = [
 export const galleryCategories = ["All", "Cuts", "Beards", "Shaves", "Weddings", "Interiors"] as const;
 
 export const galleryItems = [
-  { id: "g1", src: cutImg, category: "Cuts", title: "The Mayfair Sweep" },
+  { id: "g1", src: cutImg, category: "Cuts", title: "The Ashford Sweep" },
   { id: "g2", src: beardImg, category: "Beards", title: "Sculpted Long Beard" },
   { id: "g3", src: shaveImg, category: "Shaves", title: "Heritage Hot-Towel" },
   { id: "g4", src: heroImg, category: "Interiors", title: "Reading Room" },
@@ -106,7 +106,7 @@ export const galleryItems = [
   { id: "g6", src: beardImg, category: "Beards", title: "Salt & Pepper Trim" },
   { id: "g7", src: cutImg, category: "Cuts", title: "Side Part, Soft Finish" },
   { id: "g8", src: shaveImg, category: "Shaves", title: "Single-Blade Ritual" },
-  { id: "g9", src: heroImg, category: "Interiors", title: "Mount Street Chair" },
+  { id: "g9", src: heroImg, category: "Interiors", title: "Woodthorpe Road Chair" },
   { id: "g10", src: cutImg, category: "Weddings", title: "Country House Wedding" },
   { id: "g11", src: beardImg, category: "Beards", title: "The Curated Stubble" },
   { id: "g12", src: cutImg, category: "Cuts", title: "Crop with Texture" },
@@ -230,7 +230,7 @@ export const promotionsPage = {
       code: "MIDSUMMER",
     },
     {
-      title: "Festive Gentleman",
+      title: "Festive Client",
       window: "December",
       body: "Bespoke gift cards in hand-pressed envelopes, delivered within W1 by bicycle.",
       code: "FESTIVE",
@@ -274,7 +274,7 @@ export const blogPosts = [
   {
     slug: "the-grooms-week",
     title: "The Groom's Week: a five-day grooming diary",
-    excerpt: "From the rehearsal dinner to the morning of — exactly how we prepare our gentlemen for the day.",
+    excerpt: "From the rehearsal dinner to the morning of — exactly how we prepare our clients for the day.",
     category: "Weddings",
     readTime: "10 min",
     date: "14 April 2026",
@@ -293,8 +293,8 @@ export const blogPosts = [
   },
   {
     slug: "the-mayfair-address",
-    title: "Notes from Mount Street",
-    excerpt: "A walking guide to our corner of Mayfair — from the tailors to the tea rooms — for visiting gentlemen.",
+    title: "Notes from Woodthorpe Road",
+    excerpt: "A walking guide to our corner of Ashford — from the tailors to the tea rooms — for visiting clients.",
     category: "City",
     readTime: "7 min",
     date: "18 March 2026",

@@ -7,9 +7,9 @@ import { Check, Crown, Award, Gem } from "lucide-react";
 export const Route = createFileRoute("/loyalty")({
   head: () => ({
     meta: [
-      { title: `The Vale Circle — ${SALON_CONFIG.name}` },
+      { title: `The Glow Circle — ${SALON_CONFIG.name}` },
       { name: "description", content: "Three tiers of considered membership. Bronze, Silver, Gold." },
-      { property: "og:title", content: `The Vale Circle — ${SALON_CONFIG.name}` },
+      { property: "og:title", content: `The Glow Circle — ${SALON_CONFIG.name}` },
       { property: "og:description", content: "A loyalty programme designed like a private members' club." },
     ],
     links: [{ rel: "canonical", href: "/loyalty" }],

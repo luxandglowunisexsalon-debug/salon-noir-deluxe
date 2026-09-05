@@ -5,7 +5,7 @@ export const member = {
   fullName: "James Pemberton",
   email: "james.pemberton@gmail.com",
   phone: "+44 7700 900 184",
-  address: "27 Mount Street, Mayfair, London W1K 2RX",
+  address: "27 Woodthorpe Road, Ashford, London TW15 2RL",
   memberSince: "March 2023",
   tier: "Gold" as "Bronze" | "Silver" | "Gold",
   points: 2450,
@@ -26,7 +26,7 @@ export const nextAppointment = {
   time: "2:30 PM",
   duration: "1 hr 25 min",
   status: "Confirmed" as const,
-  location: "Chair 03 · Mayfair",
+  location: "Chair 03 · Ashford",
 };
 
 export const upcoming = [
@@ -40,7 +40,7 @@ export const upcoming = [
     time: "11:00 AM",
     duration: "45 min",
     status: "Confirmed" as const,
-    location: "Suite 01 · Mayfair",
+    location: "Suite 01 · Ashford",
   },
   {
     id: "apt-503",
@@ -51,7 +51,7 @@ export const upcoming = [
     time: "5:15 PM",
     duration: "55 min",
     status: "Pending" as const,
-    location: "Chair 03 · Mayfair",
+    location: "Chair 03 · Ashford",
   },
 ];
 

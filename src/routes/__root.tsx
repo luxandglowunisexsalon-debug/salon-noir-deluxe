@@ -79,10 +79,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "theme-color", content: "#fbf9f4" },
-      { title: "Hawthorne & Vale — Mayfair Gentlemen's Salon" },
-      { name: "description", content: "A Mayfair house of grooming for the modern gentleman. Master cuts, hot-towel shaves, wedding grooming and member-only rituals." },
+      { title: "Lux & Glow — Ashford Clients's Salon" },
+      { name: "description", content: "A Ashford house of grooming for the modern client. Master cuts, hot-towel shaves, wedding grooming and member-only rituals." },
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "Hawthorne & Vale" },
+      { property: "og:site_name", content: "Lux & Glow" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [

@@ -88,7 +88,7 @@ export const testimonials = [
 ];
 
 export const beforeAfter = [
-  { before: cutImg, after: cutImg, name: "The Mayfair Sweep" },
+  { before: cutImg, after: cutImg, name: "The Ashford Sweep" },
   { before: beardImg, after: beardImg, name: "The Curated Beard" },
   { before: shaveImg, after: shaveImg, name: "The Heritage Shave" },
 ];

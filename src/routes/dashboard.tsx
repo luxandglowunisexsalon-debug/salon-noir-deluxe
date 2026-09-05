@@ -200,7 +200,7 @@ function SidebarContent({
     <div className="flex h-full flex-col">
       <div className="px-7 py-7 border-b border-border">
         <Link to="/" className="block">
-          <p className="eyebrow">The Vale Circle</p>
+          <p className="eyebrow">The Glow Circle</p>
           <p className="mt-2 font-display text-xl text-charcoal">{SALON_CONFIG.name}</p>
         </Link>
       </div>
@@ -509,7 +509,7 @@ function LoyaltyClub() {
 
   return (
     <div className="space-y-10">
-      <SectionHeader eyebrow="The Vale Circle" title="Loyalty Club" subtitle="A quieter way to belong." />
+      <SectionHeader eyebrow="The Glow Circle" title="Loyalty Club" subtitle="A quieter way to belong." />
 
       {/* Tier hero */}
       <div className="relative overflow-hidden bg-charcoal p-10 text-ivory shadow-luxe md:p-14">

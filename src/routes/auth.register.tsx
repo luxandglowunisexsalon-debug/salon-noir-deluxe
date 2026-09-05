@@ -8,7 +8,7 @@ import { services } from "@/lib/mock-data";
 const STYLISTS = ["Marcus Vale", "Sebastian Hawthorne", "Oliver Finch", "No preference"];
 
 export const Route = createFileRoute("/auth/register")({
-  head: () => ({ meta: [{ title: "Join — Hawthorne & Vale" }] }),
+  head: () => ({ meta: [{ title: "Join — Lux & Glow" }] }),
   component: RegisterPage,
 });
 
@@ -54,7 +54,7 @@ function RegisterPage() {
       title={step === 1 ? "Request your membership." : "A few preferences."}
       subtitle={
         step === 1
-          ? "An account at Hawthorne & Vale unlocks priority booking, loyalty rewards and member-only rituals."
+          ? "An account at Lux & Glow unlocks priority booking, loyalty rewards and member-only rituals."
           : "Tell us what you favour so your master barber is ready before you arrive."
       }
       footer={

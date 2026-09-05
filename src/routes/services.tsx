@@ -7,9 +7,9 @@ export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
       { title: `Services — ${SALON_CONFIG.name}` },
-      { name: "description", content: "The full menu of grooming services at our Mayfair house." },
+      { name: "description", content: "The full menu of grooming services at our Ashford house." },
       { property: "og:title", content: `Services — ${SALON_CONFIG.name}` },
-      { property: "og:description", content: "The full menu of grooming services at our Mayfair house." },
+      { property: "og:description", content: "The full menu of grooming services at our Ashford house." },
     ],
     links: [{ rel: "canonical", href: "/services" }],
   }),

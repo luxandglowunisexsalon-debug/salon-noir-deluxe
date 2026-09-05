@@ -7,7 +7,7 @@ export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: `Heritage — ${SALON_CONFIG.name}` },
-      { name: "description", content: "Our story, our craft, our masters — the heritage of a Mayfair grooming house." },
+      { name: "description", content: "Our story, our craft, our masters — the heritage of a Ashford grooming house." },
     ],
     links: [{ rel: "canonical", href: "/about" }],
   }),
@@ -24,8 +24,8 @@ function AboutPage() {
         </div>
         <div className="space-y-6 text-muted-foreground md:col-span-6 md:col-start-7 md:pt-4">
           <p>
-            {SALON_CONFIG.name} began as a single chair on Mount Street, opened by two friends with a quiet belief: that a
-            gentleman's grooming ought to feel like a private appointment with a tailor, not a transaction.
+            {SALON_CONFIG.name} began as a single chair on Woodthorpe Road, opened by two friends with a quiet belief: that a
+            client's grooming ought to feel like a private appointment with a tailor, not a transaction.
           </p>
           <p>
             A decade on, the philosophy hasn't moved an inch. Every master barber holds at least twelve years' experience. Every

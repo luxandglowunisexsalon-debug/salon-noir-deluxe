@@ -37,14 +37,14 @@ export function AuthShell({
           <div className="relative max-w-md">
             <p className="eyebrow text-champagne">{SALON_CONFIG.established}</p>
             <h2 className="mt-4 font-display text-4xl leading-tight">
-              A private house of grooming, kept for gentlemen who notice the details.
+              A private house of grooming, kept for clients who notice the details.
             </h2>
             <div className="mt-6 h-px w-14 bg-gradient-to-r from-champagne to-transparent" />
             <p className="mt-6 font-serif text-lg italic text-ivory/80">
-              "Membership at Hawthorne &amp; Vale is the quietest luxury in Mayfair."
+              "Membership at Lux &amp; Glow is the quietest luxury in Ashford."
             </p>
             <p className="mt-2 text-xs tracking-[0.2em] uppercase text-ivory/50">
-              — The Gentleman's Journal
+              — The Client's Journal
             </p>
           </div>
 

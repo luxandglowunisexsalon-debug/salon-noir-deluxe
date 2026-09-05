@@ -33,14 +33,14 @@ function Home() {
           <div className="md:col-span-6 md:pt-12">
             <div className="flex items-center gap-3">
               <span className="gold-rule" />
-              <span className="eyebrow">{SALON_CONFIG.established} · Mayfair</span>
+              <span className="eyebrow">{SALON_CONFIG.established} · Ashford</span>
             </div>
             <h1 className="mt-7 font-display text-[2.6rem] leading-[1.05] tracking-tight text-charcoal md:text-[4.2rem]">
               The quiet art of <em className="font-serif italic text-gold">looking</em> impeccable.
             </h1>
             <p className="mt-7 max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
-              {SALON_CONFIG.name} is a private house of grooming for the modern gentleman — master cuts,
-              hot-towel rituals and a discreet, unhurried welcome on Mount Street.
+              {SALON_CONFIG.name} is a private house of grooming for the modern client — master cuts,
+              hot-towel rituals and a discreet, unhurried welcome on Woodthorpe Road.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-4">
               <Link
@@ -58,7 +58,7 @@ function Home() {
             </div>
             <div className="mt-12 flex flex-wrap gap-x-10 gap-y-4 text-sm text-muted-foreground">
               <span className="flex items-center gap-2"><Star className="h-4 w-4 text-gold" /> 4.92 · 1,284 members</span>
-              <span className="flex items-center gap-2"><MapPin className="h-4 w-4 text-gold" /> Mount Street, W1</span>
+              <span className="flex items-center gap-2"><MapPin className="h-4 w-4 text-gold" /> Woodthorpe Road, TW15</span>
               <span className="flex items-center gap-2"><Clock className="h-4 w-4 text-gold" /> Open until 20:00</span>
             </div>
           </div>
@@ -73,7 +73,7 @@ function Home() {
                 height={1100}
               />
               <div className="absolute -bottom-6 -left-6 hidden bg-ivory p-6 shadow-luxe md:block">
-                <p className="eyebrow">The Vale Circle</p>
+                <p className="eyebrow">The Glow Circle</p>
                 <p className="mt-2 max-w-[12rem] font-display text-lg leading-tight text-charcoal">
                   Member rituals, monthly grooming gifts & priority booking.
                 </p>
@@ -144,7 +144,7 @@ function Home() {
               { i: Award, t: "Master craftsmen", d: "British Master Barbers Alliance certified." },
               { i: Sparkles, t: "Heritage rituals", d: "Hot towels, hand-blended oils, single-blade shaves." },
               { i: Clock, t: "Unhurried by design", d: "Generous appointment windows, never overbooked." },
-              { i: Star, t: "Members first", d: "The Vale Circle: priority chairs and quiet perks." },
+              { i: Star, t: "Members first", d: "The Glow Circle: priority chairs and quiet perks." },
             ].map(({ i: Icon, t, d }) => (
               <div key={t} className="border-l border-champagne/50 pl-5">
                 <Icon className="h-5 w-5 text-gold" />

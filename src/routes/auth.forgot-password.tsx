@@ -4,7 +4,7 @@ import { AuthShell, Field, PrimaryButton } from "@/components/auth/AuthShell";
 import { useAuth } from "@/lib/auth-context";
 
 export const Route = createFileRoute("/auth/forgot-password")({
-  head: () => ({ meta: [{ title: "Reset Access — Hawthorne & Vale" }] }),
+  head: () => ({ meta: [{ title: "Reset Access — Lux & Glow" }] }),
   component: ForgotPage,
 });
 

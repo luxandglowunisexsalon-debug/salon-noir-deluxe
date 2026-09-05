@@ -10,7 +10,7 @@ export const Route = createFileRoute("/reviews")({
       { title: `Reviews — ${SALON_CONFIG.name}` },
       { name: "description", content: "What our members and guests say about the house. 4.92 average across 1,284 reviews." },
       { property: "og:title", content: `Reviews — ${SALON_CONFIG.name}` },
-      { property: "og:description", content: "Honest reviews from our gentlemen, weddings and quiet regulars." },
+      { property: "og:description", content: "Honest reviews from our clients, weddings and quiet regulars." },
     ],
     links: [{ rel: "canonical", href: "/reviews" }],
   }),
@@ -105,7 +105,7 @@ function ReviewsPage() {
       {/* Video reviews */}
       <section className="mx-auto max-w-7xl px-5 py-20 md:px-10 md:py-28">
         <span className="eyebrow">Video</span>
-        <h2 className="mt-3 font-display text-3xl text-charcoal md:text-5xl">Hear from our gentlemen.</h2>
+        <h2 className="mt-3 font-display text-3xl text-charcoal md:text-5xl">Hear from our clients.</h2>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {videoReviews.map((v) => (
             <button key={v.id} className="group relative overflow-hidden bg-charcoal text-left">

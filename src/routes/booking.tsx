@@ -9,7 +9,7 @@ export const Route = createFileRoute("/booking")({
   head: () => ({
     meta: [
       { title: `Reserve — ${SALON_CONFIG.name}` },
-      { name: "description", content: "Reserve your chair at our Mayfair gentlemen's salon." },
+      { name: "description", content: "Reserve your chair at our Ashford clients's salon." },
     ],
     links: [{ rel: "canonical", href: "/booking" }],
   }),

@@ -7,7 +7,7 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: `Visit — ${SALON_CONFIG.name}` },
-      { name: "description", content: `Reach the concierge at ${SALON_CONFIG.name}, Mayfair.` },
+      { name: "description", content: `Reach the concierge at ${SALON_CONFIG.name}, Ashford.` },
     ],
     links: [{ rel: "canonical", href: "/contact" }],
   }),
@@ -19,7 +19,7 @@ function ContactPage() {
     <SiteShell>
       <section className="mx-auto max-w-7xl px-5 pt-16 pb-10 md:px-10 md:pt-24">
         <span className="eyebrow">Visit</span>
-        <h1 className="mt-4 font-display text-4xl text-charcoal md:text-6xl">In Mayfair, at your service.</h1>
+        <h1 className="mt-4 font-display text-4xl text-charcoal md:text-6xl">In Ashford, at your service.</h1>
       </section>
 
       <section className="mx-auto grid max-w-7xl gap-10 px-5 pb-24 md:grid-cols-2 md:px-10">

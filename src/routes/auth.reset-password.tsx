@@ -5,7 +5,7 @@ import { PasswordField, isPasswordStrong } from "@/components/auth/PasswordField
 import { useAuth } from "@/lib/auth-context";
 
 export const Route = createFileRoute("/auth/reset-password")({
-  head: () => ({ meta: [{ title: "New Password — Hawthorne & Vale" }] }),
+  head: () => ({ meta: [{ title: "New Password — Lux & Glow" }] }),
   component: ResetPage,
 });
 
