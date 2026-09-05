@@ -79,10 +79,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "theme-color", content: "#fbf9f4" },
-      { title: "Lux & Glow — Ashford Clients's Salon" },
-      { name: "description", content: "A Ashford house of grooming for the modern client. Master cuts, hot-towel shaves, wedding grooming and member-only rituals." },
+      { title: "Lux & Glow — Barber & Unisex Salon in Ashford, TW15" },
+      { name: "description", content: "Lux & Glow is a barber and unisex beauty salon at 9 Woodthorpe Road, Ashford TW15 2RL. Cuts, fades, colour, beards, waxing and beauty. Call 01784 392 898." },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Lux & Glow" },
+
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
