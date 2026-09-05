@@ -8,11 +8,11 @@ export const Route = createFileRoute("/promotions")({
   head: () => ({
     meta: [
       { title: `Offers & Seasonal Rituals — ${SALON_CONFIG.name}` },
-      { name: "description", content: "A small, curated selection of seasonal offers and member-only rituals." },
+      { name: "description", content: "Seasonal offers, first-visit discounts and referral rewards at Lux & Glow, Ashford." },
       { property: "og:title", content: `Offers — ${SALON_CONFIG.name}` },
-      { property: "og:description", content: "Welcome ritual, referral, member-only and seasonal offers." },
+      { property: "og:description", content: "Welcome offer, referral credit and seasonal deals at our Ashford unisex salon." },
     ],
-    links: [{ rel: "canonical", href: "/promotions" }],
+    links: [{ rel: "canonical", href: "https://noble-manor-haven.lovable.app/promotions" }],
   }),
   component: PromotionsPage,
 });

@@ -6,10 +6,10 @@ import { Phone, Mail, MessageCircle, MapPin } from "lucide-react";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: `Visit — ${SALON_CONFIG.name}` },
-      { name: "description", content: `Reach the concierge at ${SALON_CONFIG.name}, Ashford.` },
+      { title: `Contact & Find Us — ${SALON_CONFIG.name}, Ashford TW15` },
+      { name: "description", content: `Call Lux & Glow on 01784 392 898 or visit 9 Woodthorpe Road, Ashford TW15 2RL. Opening hours seven days a week.` },
     ],
-    links: [{ rel: "canonical", href: "/contact" }],
+    links: [{ rel: "canonical", href: "https://noble-manor-haven.lovable.app/contact" }],
   }),
   component: ContactPage,
 });

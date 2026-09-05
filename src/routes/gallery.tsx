@@ -8,12 +8,12 @@ import { X } from "lucide-react";
 export const Route = createFileRoute("/gallery")({
   head: () => ({
     meta: [
-      { title: `Gallery — ${SALON_CONFIG.name}` },
-      { name: "description", content: "Cuts, beards, shaves and wedding grooming — a quiet visual record of our house." },
-      { property: "og:title", content: `Gallery — ${SALON_CONFIG.name}` },
-      { property: "og:description", content: "Before & after, signature interiors, and a curated portfolio." },
+      { title: `Hair Gallery — ${SALON_CONFIG.name} Salon, Ashford` },
+      { name: "description", content: "Haircuts, skin fades, colour, styling and bridal looks created at Lux & Glow in Ashford." },
+      { property: "og:title", content: `Hair Gallery — ${SALON_CONFIG.name} Salon, Ashford` },
+      { property: "og:description", content: "Before and after transformations from our Ashford unisex salon." },
     ],
-    links: [{ rel: "canonical", href: "/gallery" }],
+    links: [{ rel: "canonical", href: "https://noble-manor-haven.lovable.app/gallery" }],
   }),
   component: GalleryPage,
 });

@@ -6,10 +6,10 @@ import heroImg from "@/assets/hero-salon.jpg";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: `Heritage — ${SALON_CONFIG.name}` },
-      { name: "description", content: "Our story, our craft, our masters — the heritage of a Ashford grooming house." },
+      { title: `About Us — ${SALON_CONFIG.name} Barber & Unisex Salon, Ashford` },
+      { name: "description", content: "Meet the team behind Lux & Glow, a barber and unisex beauty salon on Woodthorpe Road in Ashford, TW15." },
     ],
-    links: [{ rel: "canonical", href: "/about" }],
+    links: [{ rel: "canonical", href: "https://noble-manor-haven.lovable.app/about" }],
   }),
   component: AboutPage,
 });

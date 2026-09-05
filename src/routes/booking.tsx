@@ -8,10 +8,10 @@ import { Check } from "lucide-react";
 export const Route = createFileRoute("/booking")({
   head: () => ({
     meta: [
-      { title: `Reserve — ${SALON_CONFIG.name}` },
-      { name: "description", content: "Reserve your chair at our Ashford clients's salon." },
+      { title: `Book Online — ${SALON_CONFIG.name} Barber & Salon, Ashford` },
+      { name: "description", content: "Book a haircut, skin fade, beard trim, colour or beauty treatment at Lux & Glow in Ashford, TW15." },
     ],
-    links: [{ rel: "canonical", href: "/booking" }],
+    links: [{ rel: "canonical", href: "https://noble-manor-haven.lovable.app/booking" }],
   }),
   component: BookingPage,
 });

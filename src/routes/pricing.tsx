@@ -7,12 +7,12 @@ import { Check, Sparkles } from "lucide-react";
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-      { title: `Pricing & Membership — ${SALON_CONFIG.name}` },
-      { name: "description", content: "Membership tiers, curated packages and wedding grooming offers from our Ashford house." },
-      { property: "og:title", content: `Pricing & Membership — ${SALON_CONFIG.name}` },
-      { property: "og:description", content: "Bronze, Silver and Gold memberships. Curated packages. Bespoke wedding grooming." },
+      { title: `Price List — ${SALON_CONFIG.name} Barber & Unisex Salon, Ashford` },
+      { name: "description", content: "Haircut, barbering, colour and beauty prices at Lux & Glow, 9 Woodthorpe Road, Ashford TW15." },
+      { property: "og:title", content: `Price List — ${SALON_CONFIG.name} Barber & Unisex Salon, Ashford` },
+      { property: "og:description", content: "Clear prices for cuts, fades, colour, waxing and bridal packages in Ashford." },
     ],
-    links: [{ rel: "canonical", href: "/pricing" }],
+    links: [{ rel: "canonical", href: "https://noble-manor-haven.lovable.app/pricing" }],
   }),
   component: PricingPage,
 });

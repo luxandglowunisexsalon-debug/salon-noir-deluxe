@@ -7,12 +7,12 @@ import { Star, PlayCircle, Quote } from "lucide-react";
 export const Route = createFileRoute("/reviews")({
   head: () => ({
     meta: [
-      { title: `Reviews — ${SALON_CONFIG.name}` },
-      { name: "description", content: "What our members and guests say about the house. 4.92 average across 1,284 reviews." },
-      { property: "og:title", content: `Reviews — ${SALON_CONFIG.name}` },
-      { property: "og:description", content: "Honest reviews from our clients, weddings and quiet regulars." },
+      { title: `Customer Reviews — ${SALON_CONFIG.name}, Ashford TW15` },
+      { name: "description", content: "Read what clients say about Lux & Glow barber and unisex salon in Ashford." },
+      { property: "og:title", content: `Customer Reviews — ${SALON_CONFIG.name}, Ashford TW15` },
+      { property: "og:description", content: "Honest reviews from our Ashford clients — cuts, colour, beards and beauty." },
     ],
-    links: [{ rel: "canonical", href: "/reviews" }],
+    links: [{ rel: "canonical", href: "https://noble-manor-haven.lovable.app/reviews" }],
   }),
   component: ReviewsPage,
 });

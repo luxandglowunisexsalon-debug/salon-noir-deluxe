@@ -6,12 +6,12 @@ import { SALON_CONFIG } from "@/lib/salon-config";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: `Services — ${SALON_CONFIG.name}` },
-      { name: "description", content: "The full menu of grooming services at our Ashford house." },
-      { property: "og:title", content: `Services — ${SALON_CONFIG.name}` },
-      { property: "og:description", content: "The full menu of grooming services at our Ashford house." },
+      { title: `Services — Barber, Hair & Beauty in Ashford | ${SALON_CONFIG.name}` },
+      { name: "description", content: "Haircuts, skin fades, beard trims, colour, blow-dry, waxing and beauty treatments for women and men in Ashford, TW15." },
+      { property: "og:title", content: `Services — Barber, Hair & Beauty in Ashford | ${SALON_CONFIG.name}` },
+      { property: "og:description", content: "Haircuts, skin fades, beard trims, colour, blow-dry, waxing and beauty treatments for women and men in Ashford, TW15." },
     ],
-    links: [{ rel: "canonical", href: "/services" }],
+    links: [{ rel: "canonical", href: "https://noble-manor-haven.lovable.app/services" }],
   }),
   component: ServicesPage,
 });
