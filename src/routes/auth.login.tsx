@@ -5,10 +5,10 @@ import { PasswordField } from "@/components/auth/PasswordField";
 import { useAuth } from "@/lib/auth-context";
 
 export const Route = createFileRoute("/auth/login")({
-  validateSearch: (s: Record<string, unknown>) => ({
-    redirect: typeof s.redirect === "string" ? s.redirect : undefined,
-  }),
-  head: () => ({ meta: [{ title: "Sign In — Hawthorne & Vale" }] }),
+  validateSearch: (s: Record<string, unknown>): { redirect?: string } =>
+    typeof s.redirect === "string" ? { redirect: s.redirect } : {},
+  head: () => ({ meta: [{ title: "Sign In — Lux & Glow Barber & Unisex Salon" }] }),
+
   component: LoginPage,
 });
 
