@@ -6,12 +6,12 @@ import { SALON_CONFIG } from "@/lib/salon-config";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: `Services — ${SALON_CONFIG.name}` },
-      { name: "description", content: "The full menu of grooming services at our Mayfair house." },
-      { property: "og:title", content: `Services — ${SALON_CONFIG.name}` },
-      { property: "og:description", content: "The full menu of grooming services at our Mayfair house." },
+      { title: `Services — Barber, Hair & Beauty in Ashford | ${SALON_CONFIG.name}` },
+      { name: "description", content: "Haircuts, skin fades, beard trims, colour, blow-dry, waxing and beauty treatments for women and men in Ashford, TW15." },
+      { property: "og:title", content: `Services — Barber, Hair & Beauty in Ashford | ${SALON_CONFIG.name}` },
+      { property: "og:description", content: "Haircuts, skin fades, beard trims, colour, blow-dry, waxing and beauty treatments for women and men in Ashford, TW15." },
     ],
-    links: [{ rel: "canonical", href: "/services" }],
+    links: [{ rel: "canonical", href: "https://noble-manor-haven.lovable.app/services" }],
   }),
   component: ServicesPage,
 });
@@ -23,7 +23,7 @@ function ServicesPage() {
         <span className="eyebrow">The Menu</span>
         <h1 className="mt-4 font-display text-4xl text-charcoal md:text-6xl">Services</h1>
         <p className="mt-5 max-w-xl text-muted-foreground">
-          Every service is performed by a master barber. Unhurried, considered, complete.
+          Every service is performed by a qualified stylist or barber. Unhurried, considered, complete.
         </p>
       </section>
 

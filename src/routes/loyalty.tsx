@@ -7,12 +7,12 @@ import { Check, Crown, Award, Gem } from "lucide-react";
 export const Route = createFileRoute("/loyalty")({
   head: () => ({
     meta: [
-      { title: `The Vale Circle — ${SALON_CONFIG.name}` },
-      { name: "description", content: "Three tiers of considered membership. Bronze, Silver, Gold." },
-      { property: "og:title", content: `The Vale Circle — ${SALON_CONFIG.name}` },
-      { property: "og:description", content: "A loyalty programme designed like a private members' club." },
+      { title: `The Glow Circle — ${SALON_CONFIG.name}` },
+      { name: "description", content: "Earn points on every visit to Lux & Glow in Ashford and unlock member rewards." },
+      { property: "og:title", content: `The Glow Circle — ${SALON_CONFIG.name}` },
+      { property: "og:description", content: "The Glow Circle loyalty rewards at our Ashford barber and unisex salon." },
     ],
-    links: [{ rel: "canonical", href: "/loyalty" }],
+    links: [{ rel: "canonical", href: "https://noble-manor-haven.lovable.app/loyalty" }],
   }),
   component: LoyaltyPage,
 });

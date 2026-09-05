@@ -6,10 +6,10 @@ import heroImg from "@/assets/hero-salon.jpg";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: `Heritage — ${SALON_CONFIG.name}` },
-      { name: "description", content: "Our story, our craft, our masters — the heritage of a Mayfair grooming house." },
+      { title: `About Us — ${SALON_CONFIG.name} Barber & Unisex Salon, Ashford` },
+      { name: "description", content: "Meet the team behind Lux & Glow, a barber and unisex beauty salon on Woodthorpe Road in Ashford, TW15." },
     ],
-    links: [{ rel: "canonical", href: "/about" }],
+    links: [{ rel: "canonical", href: "https://noble-manor-haven.lovable.app/about" }],
   }),
   component: AboutPage,
 });
@@ -24,11 +24,11 @@ function AboutPage() {
         </div>
         <div className="space-y-6 text-muted-foreground md:col-span-6 md:col-start-7 md:pt-4">
           <p>
-            {SALON_CONFIG.name} began as a single chair on Mount Street, opened by two friends with a quiet belief: that a
-            gentleman's grooming ought to feel like a private appointment with a tailor, not a transaction.
+            {SALON_CONFIG.name} began as a single chair on Woodthorpe Road, opened by two friends with a quiet belief: that a
+            client's grooming ought to feel like a private appointment with a tailor, not a transaction.
           </p>
           <p>
-            A decade on, the philosophy hasn't moved an inch. Every master barber holds at least twelve years' experience. Every
+            Since day one, the philosophy hasn't moved an inch. Every stylist and barber is fully qualified and experienced. Every
             ritual — the warm towels, the hand-blended oils, the single-blade finish — is performed without rush, without compromise.
           </p>
           <p>

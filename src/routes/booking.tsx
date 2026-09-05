@@ -8,10 +8,10 @@ import { Check } from "lucide-react";
 export const Route = createFileRoute("/booking")({
   head: () => ({
     meta: [
-      { title: `Reserve — ${SALON_CONFIG.name}` },
-      { name: "description", content: "Reserve your chair at our Mayfair gentlemen's salon." },
+      { title: `Book Online — ${SALON_CONFIG.name} Barber & Salon, Ashford` },
+      { name: "description", content: "Book a haircut, skin fade, beard trim, colour or beauty treatment at Lux & Glow in Ashford, TW15." },
     ],
-    links: [{ rel: "canonical", href: "/booking" }],
+    links: [{ rel: "canonical", href: "https://noble-manor-haven.lovable.app/booking" }],
   }),
   component: BookingPage,
 });
@@ -76,7 +76,7 @@ function BookingPage() {
               </div>
             </Step>
 
-            <Step n="02" label="Choose your master barber">
+            <Step n="02" label="Choose your stylist or barber">
               <div className="flex flex-wrap gap-3">
                 {barbers.map((b) => (
                   <button
@@ -114,7 +114,7 @@ function BookingPage() {
             <h3 className="mt-4 font-display text-2xl text-charcoal">{service.name}</h3>
             <ul className="mt-6 space-y-3 text-sm text-charcoal">
               <Row k="Duration" v={service.duration} />
-              <Row k="Master barber" v={barber} />
+              <Row k="Stylist" v={barber} />
               <Row k="Date" v="Thursday, 12 June" />
               <Row k="Time" v={time} />
               <Row k="House" v={SALON_CONFIG.name} />

@@ -5,10 +5,10 @@ import { PasswordField, isPasswordStrong } from "@/components/auth/PasswordField
 import { useAuth } from "@/lib/auth-context";
 import { services } from "@/lib/mock-data";
 
-const STYLISTS = ["Marcus Vale", "Sebastian Hawthorne", "Oliver Finch", "No preference"];
+const STYLISTS = ["Amira Khan", "Daniel Reyes", "Sofia Lane", "No preference"];
 
 export const Route = createFileRoute("/auth/register")({
-  head: () => ({ meta: [{ title: "Join — Hawthorne & Vale" }] }),
+  head: () => ({ meta: [{ title: "Join — Lux & Glow" }] }),
   component: RegisterPage,
 });
 
@@ -54,8 +54,8 @@ function RegisterPage() {
       title={step === 1 ? "Request your membership." : "A few preferences."}
       subtitle={
         step === 1
-          ? "An account at Hawthorne & Vale unlocks priority booking, loyalty rewards and member-only rituals."
-          : "Tell us what you favour so your master barber is ready before you arrive."
+          ? "An account at Lux & Glow unlocks priority booking, loyalty rewards and member-only rituals."
+          : "Tell us what you favour so your stylist is ready before you arrive."
       }
       footer={
         <p>
@@ -104,7 +104,7 @@ function RegisterPage() {
             </div>
 
             <label className="block">
-              <span className="eyebrow">Preferred master barber</span>
+              <span className="eyebrow">Preferred stylist or barber</span>
               <select
                 value={form.preferred_stylist}
                 onChange={(e) => setForm({ ...form, preferred_stylist: e.target.value })}

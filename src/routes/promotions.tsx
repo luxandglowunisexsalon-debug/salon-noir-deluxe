@@ -8,11 +8,11 @@ export const Route = createFileRoute("/promotions")({
   head: () => ({
     meta: [
       { title: `Offers & Seasonal Rituals — ${SALON_CONFIG.name}` },
-      { name: "description", content: "A small, curated selection of seasonal offers and member-only rituals." },
+      { name: "description", content: "Seasonal offers, first-visit discounts and referral rewards at Lux & Glow, Ashford." },
       { property: "og:title", content: `Offers — ${SALON_CONFIG.name}` },
-      { property: "og:description", content: "Welcome ritual, referral, member-only and seasonal offers." },
+      { property: "og:description", content: "Welcome offer, referral credit and seasonal deals at our Ashford unisex salon." },
     ],
-    links: [{ rel: "canonical", href: "/promotions" }],
+    links: [{ rel: "canonical", href: "https://noble-manor-haven.lovable.app/promotions" }],
   }),
   component: PromotionsPage,
 });
@@ -83,7 +83,7 @@ function PromotionsPage() {
             <span className="eyebrow">Members only</span>
             <h2 className="mt-3 font-display text-3xl text-charcoal md:text-5xl">Reserved for the Circle.</h2>
             <p className="mt-5 text-muted-foreground">
-              Quiet perks held back for our Vale Circle members — never advertised, always offered.
+              Quiet perks held back for our Glow Circle members — never advertised, always offered.
             </p>
             <Link to="/loyalty" className="mt-8 inline-block rounded-full bg-charcoal px-7 py-3.5 text-[12px] tracking-[0.2em] uppercase text-ivory hover:opacity-90">
               Discover membership
@@ -107,7 +107,7 @@ function PromotionsPage() {
             <Gift className="h-8 w-8 text-champagne" strokeWidth={1.2} />
             <h2 className="mt-6 font-display text-3xl md:text-5xl">Gift, gracefully.</h2>
             <p className="mt-4 max-w-md text-ivory/75">
-              Hand-pressed envelopes, bicycle-delivered within Mayfair. From a single shave to a year of cuts.
+              Hand-pressed envelopes, bicycle-delivered within Ashford. From a single shave to a year of cuts.
             </p>
           </div>
           <div className="flex items-end justify-start gap-4 md:justify-end">

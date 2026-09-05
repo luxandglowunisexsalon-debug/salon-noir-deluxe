@@ -4,7 +4,7 @@ import { AuthShell, PrimaryButton } from "@/components/auth/AuthShell";
 import { useAuth } from "@/lib/auth-context";
 
 export const Route = createFileRoute("/auth/verify-email")({
-  head: () => ({ meta: [{ title: "Verify Email — Hawthorne & Vale" }] }),
+  head: () => ({ meta: [{ title: "Verify Email — Lux & Glow" }] }),
   component: VerifyPage,
 });
 

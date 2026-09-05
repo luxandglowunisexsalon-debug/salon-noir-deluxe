@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://noble-manor-haven.lovable.app/sitemap.xml

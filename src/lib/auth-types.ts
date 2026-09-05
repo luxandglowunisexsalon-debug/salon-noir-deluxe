@@ -30,7 +30,7 @@ export interface Customer extends Profile {
   preferred_services: string[];
   preferred_stylist: string | null;
   marketing_opt_in: boolean;
-  loyalty_tier: "Oak" | "Brass" | "Champagne" | "Vale";
+  loyalty_tier: "Shine" | "Radiance" | "Champagne" | "Lux";
   loyalty_points: number;
 }
 

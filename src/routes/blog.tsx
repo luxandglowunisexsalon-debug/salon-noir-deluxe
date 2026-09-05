@@ -8,12 +8,12 @@ import { useMemo, useState } from "react";
 export const Route = createFileRoute("/blog")({
   head: () => ({
     meta: [
-      { title: `The Journal — ${SALON_CONFIG.name}` },
-      { name: "description", content: "Notes on grooming, heritage, weddings and the quiet art of looking impeccable." },
-      { property: "og:title", content: `The Journal — ${SALON_CONFIG.name}` },
-      { property: "og:description", content: "Editorial notes from our master barbers and the house concierge." },
+      { title: `Hair & Beauty Journal — ${SALON_CONFIG.name}, Ashford` },
+      { name: "description", content: "Hair, barbering and beauty advice from the Lux & Glow team in Ashford — styling, colour care, beard grooming and bridal prep." },
+      { property: "og:title", content: `Hair & Beauty Journal — ${SALON_CONFIG.name}, Ashford` },
+      { property: "og:description", content: "Styling tips and salon news from our Ashford barbers and stylists." },
     ],
-    links: [{ rel: "canonical", href: "/blog" }],
+    links: [{ rel: "canonical", href: "https://noble-manor-haven.lovable.app/blog" }],
   }),
   component: BlogPage,
 });
@@ -41,7 +41,7 @@ function BlogPage() {
           Editorial notes from the chair.
         </h1>
         <p className="mt-6 max-w-xl text-muted-foreground">
-          A quiet log of craft, heritage and small considered rituals — written by our master barbers and the house concierge.
+          A quiet log of craft, heritage and small considered rituals — written by our Ashford stylists and barbers.
         </p>
 
         <div className="mt-10 flex flex-wrap gap-2">

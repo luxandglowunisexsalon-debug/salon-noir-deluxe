@@ -16,12 +16,51 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: SALON_CONFIG.seo.title },
       { name: "description", content: SALON_CONFIG.seo.description },
+      { name: "keywords", content: SALON_CONFIG.seo.keywords },
       { property: "og:title", content: SALON_CONFIG.seo.title },
       { property: "og:description", content: SALON_CONFIG.seo.description },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://noble-manor-haven.lovable.app/" },
+    ],
+    links: [{ rel: "canonical", href: "https://noble-manor-haven.lovable.app/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "HairSalon",
+          name: SALON_CONFIG.name,
+          description: SALON_CONFIG.seo.description,
+          url: "https://noble-manor-haven.lovable.app/",
+          telephone: SALON_CONFIG.phone,
+          priceRange: "££",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: SALON_CONFIG.seo.streetAddress,
+            addressLocality: SALON_CONFIG.seo.locality,
+            addressRegion: SALON_CONFIG.seo.region,
+            postalCode: SALON_CONFIG.seo.postalCode,
+            addressCountry: SALON_CONFIG.seo.country,
+          },
+          areaServed: ["Ashford", "Staines-upon-Thames", "Feltham", "Sunbury", "Stanwell"],
+          openingHoursSpecification: [
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+              opens: "10:00",
+              closes: "19:00",
+            },
+            { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "09:30", closes: "19:00" },
+            { "@type": "OpeningHoursSpecification", dayOfWeek: "Sunday", opens: "10:00", closes: "18:00" },
+          ],
+          sameAs: [SALON_CONFIG.googleBusiness],
+        }),
+      },
     ],
   }),
   component: Home,
 });
+
 
 function Home() {
   const featured = services.filter((s) => s.featured);
@@ -33,35 +72,37 @@ function Home() {
           <div className="md:col-span-6 md:pt-12">
             <div className="flex items-center gap-3">
               <span className="gold-rule" />
-              <span className="eyebrow">{SALON_CONFIG.established} · Mayfair</span>
+              <span className="eyebrow">{SALON_CONFIG.established} · Ashford, TW15</span>
             </div>
             <h1 className="mt-7 font-display text-[2.6rem] leading-[1.05] tracking-tight text-charcoal md:text-[4.2rem]">
-              The quiet art of <em className="font-serif italic text-gold">looking</em> impeccable.
+              Barber & unisex salon in <em className="font-serif italic text-gold">Ashford</em>.
             </h1>
             <p className="mt-7 max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
-              {SALON_CONFIG.name} is a private house of grooming for the modern gentleman — master cuts,
-              hot-towel rituals and a discreet, unhurried welcome on Mount Street.
+              {SALON_CONFIG.name} is a barber and unisex beauty salon on Woodthorpe Road — precision cuts and
+              skin fades, colour and styling, beard grooming, waxing and beauty treatments for women and men.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-4">
               <Link
                 to="/booking"
                 className="rounded-full bg-charcoal px-7 py-3.5 text-[12px] tracking-[0.2em] uppercase text-ivory transition hover:opacity-90"
               >
-                Reserve a Chair
+                Book an Appointment
               </Link>
               <Link
                 to="/services"
                 className="rounded-full border border-charcoal/30 px-7 py-3.5 text-[12px] tracking-[0.2em] uppercase text-charcoal transition hover:border-charcoal"
               >
-                The Menu
+                Services & Prices
               </Link>
             </div>
             <div className="mt-12 flex flex-wrap gap-x-10 gap-y-4 text-sm text-muted-foreground">
-              <span className="flex items-center gap-2"><Star className="h-4 w-4 text-gold" /> 4.92 · 1,284 members</span>
-              <span className="flex items-center gap-2"><MapPin className="h-4 w-4 text-gold" /> Mount Street, W1</span>
-              <span className="flex items-center gap-2"><Clock className="h-4 w-4 text-gold" /> Open until 20:00</span>
+              <span className="flex items-center gap-2"><Star className="h-4 w-4 text-gold" /> Walk-ins welcome</span>
+              <span className="flex items-center gap-2"><MapPin className="h-4 w-4 text-gold" /> 9 Woodthorpe Road, TW15 2RL</span>
+              <span className="flex items-center gap-2"><Clock className="h-4 w-4 text-gold" /> Open 7 days a week</span>
             </div>
           </div>
+
+
 
           <div className="md:col-span-6">
             <div className="relative">
@@ -73,7 +114,7 @@ function Home() {
                 height={1100}
               />
               <div className="absolute -bottom-6 -left-6 hidden bg-ivory p-6 shadow-luxe md:block">
-                <p className="eyebrow">The Vale Circle</p>
+                <p className="eyebrow">The Glow Circle</p>
                 <p className="mt-2 max-w-[12rem] font-display text-lg leading-tight text-charcoal">
                   Member rituals, monthly grooming gifts & priority booking.
                 </p>
@@ -135,7 +176,7 @@ function Home() {
               A standard reserved for the few.
             </h2>
             <p className="mt-6 text-muted-foreground">
-              Every chair is led by a master barber with a minimum of twelve years' experience. Each appointment is unhurried,
+              Every chair is led by a qualified stylist or barber with years of experience. Each appointment is unhurried,
               private and tailored — from the consultation to the final finishing oil.
             </p>
           </div>
@@ -144,7 +185,7 @@ function Home() {
               { i: Award, t: "Master craftsmen", d: "British Master Barbers Alliance certified." },
               { i: Sparkles, t: "Heritage rituals", d: "Hot towels, hand-blended oils, single-blade shaves." },
               { i: Clock, t: "Unhurried by design", d: "Generous appointment windows, never overbooked." },
-              { i: Star, t: "Members first", d: "The Vale Circle: priority chairs and quiet perks." },
+              { i: Star, t: "Members first", d: "The Glow Circle: priority chairs and quiet perks." },
             ].map(({ i: Icon, t, d }) => (
               <div key={t} className="border-l border-champagne/50 pl-5">
                 <Icon className="h-5 w-5 text-gold" />

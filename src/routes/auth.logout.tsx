@@ -4,7 +4,7 @@ import { AuthShell, PrimaryButton } from "@/components/auth/AuthShell";
 import { useAuth } from "@/lib/auth-context";
 
 export const Route = createFileRoute("/auth/logout")({
-  head: () => ({ meta: [{ title: "Sign Out — Hawthorne & Vale" }] }),
+  head: () => ({ meta: [{ title: "Sign Out — Lux & Glow" }] }),
   component: LogoutPage,
 });
 

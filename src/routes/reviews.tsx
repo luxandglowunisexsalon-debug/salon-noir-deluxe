@@ -7,12 +7,12 @@ import { Star, PlayCircle, Quote } from "lucide-react";
 export const Route = createFileRoute("/reviews")({
   head: () => ({
     meta: [
-      { title: `Reviews — ${SALON_CONFIG.name}` },
-      { name: "description", content: "What our members and guests say about the house. 4.92 average across 1,284 reviews." },
-      { property: "og:title", content: `Reviews — ${SALON_CONFIG.name}` },
-      { property: "og:description", content: "Honest reviews from our gentlemen, weddings and quiet regulars." },
+      { title: `Customer Reviews — ${SALON_CONFIG.name}, Ashford TW15` },
+      { name: "description", content: "Read what clients say about Lux & Glow barber and unisex salon in Ashford." },
+      { property: "og:title", content: `Customer Reviews — ${SALON_CONFIG.name}, Ashford TW15` },
+      { property: "og:description", content: "Honest reviews from our Ashford clients — cuts, colour, beards and beauty." },
     ],
-    links: [{ rel: "canonical", href: "/reviews" }],
+    links: [{ rel: "canonical", href: "https://noble-manor-haven.lovable.app/reviews" }],
   }),
   component: ReviewsPage,
 });
@@ -105,7 +105,7 @@ function ReviewsPage() {
       {/* Video reviews */}
       <section className="mx-auto max-w-7xl px-5 py-20 md:px-10 md:py-28">
         <span className="eyebrow">Video</span>
-        <h2 className="mt-3 font-display text-3xl text-charcoal md:text-5xl">Hear from our gentlemen.</h2>
+        <h2 className="mt-3 font-display text-3xl text-charcoal md:text-5xl">Hear from our clients.</h2>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {videoReviews.map((v) => (
             <button key={v.id} className="group relative overflow-hidden bg-charcoal text-left">

@@ -7,12 +7,12 @@ import { Check, Sparkles } from "lucide-react";
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-      { title: `Pricing & Membership — ${SALON_CONFIG.name}` },
-      { name: "description", content: "Membership tiers, curated packages and wedding grooming offers from our Mayfair house." },
-      { property: "og:title", content: `Pricing & Membership — ${SALON_CONFIG.name}` },
-      { property: "og:description", content: "Bronze, Silver and Gold memberships. Curated packages. Bespoke wedding grooming." },
+      { title: `Price List — ${SALON_CONFIG.name} Barber & Unisex Salon, Ashford` },
+      { name: "description", content: "Haircut, barbering, colour and beauty prices at Lux & Glow, 9 Woodthorpe Road, Ashford TW15." },
+      { property: "og:title", content: `Price List — ${SALON_CONFIG.name} Barber & Unisex Salon, Ashford` },
+      { property: "og:description", content: "Clear prices for cuts, fades, colour, waxing and bridal packages in Ashford." },
     ],
-    links: [{ rel: "canonical", href: "/pricing" }],
+    links: [{ rel: "canonical", href: "https://noble-manor-haven.lovable.app/pricing" }],
   }),
   component: PricingPage,
 });
@@ -37,7 +37,7 @@ function PricingPage() {
           <div className="flex items-end justify-between">
             <div>
               <span className="eyebrow">Memberships</span>
-              <h2 className="mt-3 font-display text-3xl text-charcoal md:text-5xl">The Vale Circle</h2>
+              <h2 className="mt-3 font-display text-3xl text-charcoal md:text-5xl">The Glow Circle</h2>
             </div>
             <p className="hidden max-w-xs text-sm text-muted-foreground md:block">
               Cancel any month with a single message to your concierge.
@@ -168,15 +168,15 @@ function PricingPage() {
               Points convert quietly into perks — never asked for, always offered.
             </p>
             <Link to="/loyalty" className="mt-8 inline-block rounded-full border border-charcoal px-7 py-3.5 text-[12px] tracking-[0.2em] uppercase text-charcoal hover:bg-charcoal hover:text-ivory">
-              Discover The Vale Circle
+              Discover The Glow Circle
             </Link>
           </div>
           <div className="grid grid-cols-2 gap-4">
             {[
               { v: "£100", l: "= 500 points" },
-              { v: "500", l: "Brass tier perks" },
+              { v: "500", l: "Radiance tier perks" },
               { v: "1,500", l: "Champagne benefits" },
-              { v: "4,000", l: "The Vale tier" },
+              { v: "4,000", l: "The Lux tier" },
             ].map((s) => (
               <div key={s.l} className="bg-cream p-7 text-center">
                 <p className="font-display text-3xl text-charcoal">{s.v}</p>

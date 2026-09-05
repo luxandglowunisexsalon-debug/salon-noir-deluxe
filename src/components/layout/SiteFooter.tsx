@@ -28,7 +28,7 @@ export function SiteFooter() {
         <div>
           <p className="eyebrow">Concierge</p>
           <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-            <li><Link to="/loyalty" className="hover:text-charcoal">The Vale Circle</Link></li>
+            <li><Link to="/loyalty" className="hover:text-charcoal">The Glow Circle</Link></li>
             <li><Link to="/promotions" className="hover:text-charcoal">Offers</Link></li>
             <li><Link to="/contact" className="hover:text-charcoal">Visit</Link></li>
             <li className="pt-3 text-charcoal">{SALON_CONFIG.phone}</li>
@@ -41,7 +41,7 @@ export function SiteFooter() {
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-2 px-5 py-5 text-xs text-muted-foreground md:flex-row md:items-center md:px-10">
           <span>© {new Date().getFullYear()} {SALON_CONFIG.name}. {SALON_CONFIG.established}.</span>
-          <span className="tracking-[0.2em] uppercase">Crafted in Mayfair</span>
+          <span className="tracking-[0.2em] uppercase">Ashford · TW15 2RL</span>
         </div>
       </div>
     </footer>
