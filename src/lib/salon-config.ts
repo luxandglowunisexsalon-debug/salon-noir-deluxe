@@ -1,39 +1,46 @@
 // Global salon configuration — all editable from Admin → Settings.
-// Single source of truth for {{SALON_NAME}} and brand info.
+// Single source of truth for brand info.
 
 export const SALON_CONFIG = {
-  name: "Hawthorne & Vale",
-  tagline: "London's House of Gentlemen's Grooming",
-  logoMark: "H&V",
-  established: "Est. 2014",
-  address: "12 Mount Street, Mayfair, London W1K 2RD",
-  phone: "+44 20 7493 0084",
-  whatsapp: "+44 7700 900123",
-  email: "concierge@hawthorneandvale.co.uk",
+  name: "Lux & Glow",
+  tagline: "Barber & Unisex Salon",
+  logoMark: "L&G",
+  established: "Est. 2026",
+  address: "9 Woodthorpe Road, Ashford, TW15 2RL",
+  phone: "01784 392 898",
+  whatsapp: "01784 392 898",
+  email: "hello@luxandglow.co.uk",
   hours: [
-    { day: "Mon – Fri", time: "9:00 – 20:00" },
-    { day: "Saturday", time: "8:00 – 19:00" },
-    { day: "Sunday", time: "10:00 – 17:00" },
+    { day: "Mon – Fri", time: "10:00 – 19:00" },
+    { day: "Saturday", time: "9:30 – 19:00" },
+    { day: "Sunday", time: "10:00 – 18:00" },
   ],
   social: {
-    instagram: "@hawthorneandvale",
-    facebook: "hawthorneandvale",
-    tiktok: "@hawthornevale",
+    instagram: "@luxandglow",
+    facebook: "luxandglow",
+    tiktok: "@luxandglow",
   },
   seo: {
-    title: "Hawthorne & Vale — Mayfair Gentlemen's Salon",
+    title: "Lux & Glow — Barber & Unisex Salon in Ashford",
     description:
-      "A Mayfair house of grooming for the modern gentleman. Master cuts, hot-towel shaves, wedding grooming and member-only rituals.",
+      "Lux & Glow is a barber and unisex beauty salon in Ashford, TW15. Haircuts, skin fades, beard trims, colour, styling, waxing and beauty treatments for women and men. Walk-ins welcome, book online.",
+    keywords:
+      "Lux & Glow, unisex salon Ashford, barber Ashford, beauty salon TW15, hairdresser Ashford, ladies haircut Ashford, mens barber Woodthorpe Road",
+    locality: "Ashford",
+    region: "Surrey",
+    postalCode: "TW15 2RL",
+    streetAddress: "9 Woodthorpe Road",
+    country: "GB",
   },
-  googleBusiness: "https://g.page/hawthorneandvale",
+  googleBusiness: "https://g.page/luxandglow",
   loyalty: {
-    name: "The Vale Circle",
+    name: "The Glow Circle",
     pointsPerPound: 5,
     tiers: [
-      { name: "Oak", min: 0, perk: "5% off retail" },
-      { name: "Brass", min: 500, perk: "Complimentary hot towel + 10% off" },
-      { name: "Champagne", min: 1500, perk: "Priority booking, monthly grooming gift" },
-      { name: "Vale", min: 4000, perk: "Private suite, dedicated master barber, 20% off" },
+      { name: "Shine", min: 0, perk: "5% off retail" },
+      { name: "Radiance", min: 500, perk: "Complimentary finish + 10% off" },
+      { name: "Champagne", min: 1500, perk: "Priority booking, monthly beauty gift" },
+      { name: "Lux", min: 4000, perk: "Private suite, dedicated stylist, 20% off" },
     ],
   },
   discounts: {
