@@ -28,7 +28,7 @@ function AboutPage() {
             client's grooming ought to feel like a private appointment with a tailor, not a transaction.
           </p>
           <p>
-            A decade on, the philosophy hasn't moved an inch. Every master barber holds at least twelve years' experience. Every
+            Since day one, the philosophy hasn't moved an inch. Every stylist and barber is fully qualified and experienced. Every
             ritual — the warm towels, the hand-blended oils, the single-blade finish — is performed without rush, without compromise.
           </p>
           <p>

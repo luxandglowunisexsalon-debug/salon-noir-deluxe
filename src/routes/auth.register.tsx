@@ -55,7 +55,7 @@ function RegisterPage() {
       subtitle={
         step === 1
           ? "An account at Lux & Glow unlocks priority booking, loyalty rewards and member-only rituals."
-          : "Tell us what you favour so your master barber is ready before you arrive."
+          : "Tell us what you favour so your stylist is ready before you arrive."
       }
       footer={
         <p>
@@ -104,7 +104,7 @@ function RegisterPage() {
             </div>
 
             <label className="block">
-              <span className="eyebrow">Preferred master barber</span>
+              <span className="eyebrow">Preferred stylist or barber</span>
               <select
                 value={form.preferred_stylist}
                 onChange={(e) => setForm({ ...form, preferred_stylist: e.target.value })}

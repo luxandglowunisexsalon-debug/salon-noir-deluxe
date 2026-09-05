@@ -41,7 +41,7 @@ function BlogPage() {
           Editorial notes from the chair.
         </h1>
         <p className="mt-6 max-w-xl text-muted-foreground">
-          A quiet log of craft, heritage and small considered rituals — written by our master barbers and the house concierge.
+          A quiet log of craft, heritage and small considered rituals — written by our Ashford stylists and barbers.
         </p>
 
         <div className="mt-10 flex flex-wrap gap-2">

@@ -40,7 +40,7 @@ export const membershipPlans = [
     perks: [
       "Unlimited cuts, shaves & beard rituals",
       "Quarterly grooming consultation",
-      "Dedicated master barber",
+      "Dedicated stylist",
       "Private suite when reserved",
       "Two guest passes per quarter",
       "20% off retail & treatments",
@@ -89,7 +89,7 @@ export const groomPackages = [
     name: "The Estate",
     price: 980,
     duration: "On location",
-    body: "Our master barber travels to your country estate or London hotel.",
+    body: "Our stylist can travel to your home or venue in the Ashford area.",
     includes: ["Up to six clients", "On-site service", "Travel within M25", "Bespoke aftercare kits"],
   },
 ];

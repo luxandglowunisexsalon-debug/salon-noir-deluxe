@@ -41,7 +41,7 @@ export function SiteFooter() {
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-2 px-5 py-5 text-xs text-muted-foreground md:flex-row md:items-center md:px-10">
           <span>© {new Date().getFullYear()} {SALON_CONFIG.name}. {SALON_CONFIG.established}.</span>
-          <span className="tracking-[0.2em] uppercase">Crafted in Ashford</span>
+          <span className="tracking-[0.2em] uppercase">Ashford · TW15 2RL</span>
         </div>
       </div>
     </footer>

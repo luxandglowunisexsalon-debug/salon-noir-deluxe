@@ -176,7 +176,7 @@ function Home() {
               A standard reserved for the few.
             </h2>
             <p className="mt-6 text-muted-foreground">
-              Every chair is led by a master barber with a minimum of twelve years' experience. Each appointment is unhurried,
+              Every chair is led by a qualified stylist or barber with years of experience. Each appointment is unhurried,
               private and tailored — from the consultation to the final finishing oil.
             </p>
           </div>

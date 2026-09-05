@@ -9,7 +9,7 @@ export const services = [
     duration: "55 min",
     price: 85,
     description:
-      "Consultation, bespoke cut, scalp ritual and finishing styling with our master barber.",
+      "Consultation, bespoke cut, scalp ritual and finishing styling with your stylist or barber.",
     image: cutImg,
     category: "Hair",
     featured: true,
