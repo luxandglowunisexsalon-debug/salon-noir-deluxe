@@ -177,8 +177,8 @@ export const adminBookings = [
 
 export const adminCustomers = [
   { name: "Alexander Pemberton", tier: "Champagne", visits: 27, spend: 2140, last: "08 May" },
-  { name: "Marcus Adeyemi", tier: "Vale", visits: 41, spend: 4310, last: "29 May" },
-  { name: "Rohan Mehra", tier: "Brass", visits: 9, spend: 720, last: "30 May" },
+  { name: "Marcus Adeyemi", tier: "Lux", visits: 41, spend: 4310, last: "29 May" },
+  { name: "Rohan Mehra", tier: "Radiance", visits: 9, spend: 720, last: "30 May" },
   { name: "James Whitfield", tier: "Champagne", visits: 22, spend: 1980, last: "02 Jun" },
 ];
 

@@ -174,9 +174,9 @@ function PricingPage() {
           <div className="grid grid-cols-2 gap-4">
             {[
               { v: "£100", l: "= 500 points" },
-              { v: "500", l: "Brass tier perks" },
+              { v: "500", l: "Radiance tier perks" },
               { v: "1,500", l: "Champagne benefits" },
-              { v: "4,000", l: "The Vale tier" },
+              { v: "4,000", l: "The Lux tier" },
             ].map((s) => (
               <div key={s.l} className="bg-cream p-7 text-center">
                 <p className="font-display text-3xl text-charcoal">{s.v}</p>

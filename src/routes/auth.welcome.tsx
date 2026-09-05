@@ -16,8 +16,8 @@ function Welcome() {
     <AuthShell eyebrow="Membership Confirmed" title={`Welcome, ${name}.`} subtitle="Your seat at Lux & Glow is reserved. Below is what's waiting inside.">
       <div className="space-y-3">
         {[
-          { icon: Crown, title: "Glow Circle — Oak tier", text: "Earn 5 points for every £1 spent in house." },
-          { icon: Sparkles, title: "Priority booking", text: "Reserve with your favoured master barber 14 days ahead." },
+          { icon: Crown, title: "Glow Circle — Shine tier", text: "Earn 5 points for every £1 spent in house." },
+          { icon: Sparkles, title: "Priority booking", text: "Reserve with your favourite stylist or barber 14 days ahead." },
           { icon: Gift, title: "First-visit gift", text: "Complimentary hot-towel ritual on your inaugural appointment." },
         ].map((b) => (
           <div key={b.title} className="flex items-start gap-4 rounded border border-border bg-cream/40 p-5">
