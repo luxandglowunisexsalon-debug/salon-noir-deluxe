@@ -33,35 +33,37 @@ function Home() {
           <div className="md:col-span-6 md:pt-12">
             <div className="flex items-center gap-3">
               <span className="gold-rule" />
-              <span className="eyebrow">{SALON_CONFIG.established} · Ashford</span>
+              <span className="eyebrow">{SALON_CONFIG.established} · Ashford, TW15</span>
             </div>
             <h1 className="mt-7 font-display text-[2.6rem] leading-[1.05] tracking-tight text-charcoal md:text-[4.2rem]">
-              The quiet art of <em className="font-serif italic text-gold">looking</em> impeccable.
+              Barber & unisex salon in <em className="font-serif italic text-gold">Ashford</em>.
             </h1>
             <p className="mt-7 max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
-              {SALON_CONFIG.name} is a private house of grooming for the modern client — master cuts,
-              hot-towel rituals and a discreet, unhurried welcome on Woodthorpe Road.
+              {SALON_CONFIG.name} is a barber and unisex beauty salon on Woodthorpe Road — precision cuts and
+              skin fades, colour and styling, beard grooming, waxing and beauty treatments for women and men.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-4">
               <Link
                 to="/booking"
                 className="rounded-full bg-charcoal px-7 py-3.5 text-[12px] tracking-[0.2em] uppercase text-ivory transition hover:opacity-90"
               >
-                Reserve a Chair
+                Book an Appointment
               </Link>
               <Link
                 to="/services"
                 className="rounded-full border border-charcoal/30 px-7 py-3.5 text-[12px] tracking-[0.2em] uppercase text-charcoal transition hover:border-charcoal"
               >
-                The Menu
+                Services & Prices
               </Link>
             </div>
             <div className="mt-12 flex flex-wrap gap-x-10 gap-y-4 text-sm text-muted-foreground">
-              <span className="flex items-center gap-2"><Star className="h-4 w-4 text-gold" /> 4.92 · 1,284 members</span>
-              <span className="flex items-center gap-2"><MapPin className="h-4 w-4 text-gold" /> Woodthorpe Road, TW15</span>
-              <span className="flex items-center gap-2"><Clock className="h-4 w-4 text-gold" /> Open until 20:00</span>
+              <span className="flex items-center gap-2"><Star className="h-4 w-4 text-gold" /> Walk-ins welcome</span>
+              <span className="flex items-center gap-2"><MapPin className="h-4 w-4 text-gold" /> 9 Woodthorpe Road, TW15 2RL</span>
+              <span className="flex items-center gap-2"><Clock className="h-4 w-4 text-gold" /> Open 7 days a week</span>
             </div>
           </div>
+
+
 
           <div className="md:col-span-6">
             <div className="relative">
