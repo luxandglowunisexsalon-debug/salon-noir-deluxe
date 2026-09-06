@@ -8,7 +8,7 @@ import { ACCESS_LEVELS } from "@/lib/auth-types";
 import { SALON_CONFIG } from "@/lib/salon-config";
 import {
   adminMetrics,
-  adminBookings,
+
   adminCustomers,
   adminReviews,
   popularServices,
