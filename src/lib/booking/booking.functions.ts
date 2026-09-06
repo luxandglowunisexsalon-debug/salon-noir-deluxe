@@ -205,15 +205,21 @@ export const createBooking = createServerFn({ method: "POST" })
       const weekday = new Date(`${data.date}T00:00:00Z`).getUTCDay();
       const { data: eligible } = await supabase
         .from("stylist_services")
-        .select("stylist_id, stylists!inner(active), stylist_schedules!inner(start_time, end_time, is_off, weekday)")
+        .select("stylist_id, stylists!inner(active)")
         .eq("service_id", data.serviceId)
-        .eq("stylists.active", true)
-        .eq("stylist_schedules.weekday", weekday)
-        .eq("stylist_schedules.is_off", false);
+        .eq("stylists.active", true);
+      const eligibleIds = [...new Set((eligible ?? []).map((e: any) => e.stylist_id as string))];
+      const { data: schedules } = await supabase
+        .from("stylist_schedules")
+        .select("stylist_id, start_time, end_time")
+        .in("stylist_id", eligibleIds.length ? eligibleIds : ["00000000-0000-0000-0000-000000000000"])
+        .eq("weekday", weekday)
+        .eq("is_off", false);
       const slotMin = toMinutes(data.time);
-      const candidates = (eligible ?? [])
-        .filter((e: any) => toMinutes(e.stylist_schedules.start_time) <= slotMin && toMinutes(e.stylist_schedules.end_time) >= slotMin + service.duration_minutes)
-        .map((e: any) => e.stylist_id as string);
+      const candidates = (schedules ?? [])
+        .filter((s: any) => toMinutes(s.start_time) <= slotMin && toMinutes(s.end_time) >= slotMin + service.duration_minutes)
+        .map((s: any) => s.stylist_id as string);
+
       const { data: clashes } = await supabase
         .from("bookings")
         .select("stylist_id, scheduled_at, duration_minutes")
