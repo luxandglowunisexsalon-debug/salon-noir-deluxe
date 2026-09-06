@@ -393,38 +393,11 @@ function Appointments() {
           </Link>
         }
       />
-
-      <div className="grid gap-5">
-        {upcoming.map((a) => (
-          <article key={a.id} className="group grid gap-6 bg-card p-6 shadow-soft transition hover:shadow-luxe md:grid-cols-12 md:p-8">
-            <div className="md:col-span-2 flex md:flex-col items-center md:items-start gap-3 md:gap-1 md:border-r md:border-border md:pr-6">
-              <p className="font-display text-3xl text-gold">{a.shortDate.split(" ")[1]}</p>
-              <div>
-                <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">{a.shortDate.split(" ")[2]}</p>
-                <p className="text-xs text-muted-foreground">{a.shortDate.split(" ")[0]}</p>
-              </div>
-            </div>
-            <div className="md:col-span-7">
-              <StatusPill status={a.status} />
-              <h3 className="mt-3 font-display text-2xl text-charcoal">{a.service}</h3>
-              <p className="mt-1 font-serif italic text-muted-foreground">with {a.barber}</p>
-              <div className="mt-4 flex flex-wrap gap-4 text-sm text-charcoal/80">
-                <span className="inline-flex items-center gap-1.5"><Clock className="h-3.5 w-3.5 text-gold" /> {a.time} · {a.duration}</span>
-                <span className="inline-flex items-center gap-1.5"><MapPin className="h-3.5 w-3.5 text-gold" /> {a.location}</span>
-              </div>
-            </div>
-            <div className="md:col-span-3 flex md:flex-col gap-2 md:justify-center">
-              <button className="rounded-full bg-charcoal px-4 py-2 text-[11px] tracking-[0.18em] uppercase text-ivory">Details</button>
-              <button className="rounded-full border border-border px-4 py-2 text-[11px] tracking-[0.18em] uppercase text-charcoal hover:border-charcoal">Reschedule</button>
-              <button className="rounded-full border border-border px-4 py-2 text-[11px] tracking-[0.18em] uppercase text-charcoal hover:border-charcoal">+ Calendar</button>
-              <button className="text-[10px] tracking-[0.18em] uppercase text-muted-foreground hover:text-destructive">Cancel</button>
-            </div>
-          </article>
-        ))}
-      </div>
+      <MyAppointments />
     </div>
   );
 }
+
 
 /* ============================ BOOKING HISTORY ============================ */
 function BookingHistory() {
