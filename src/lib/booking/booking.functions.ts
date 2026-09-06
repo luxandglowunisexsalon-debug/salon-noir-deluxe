@@ -95,22 +95,30 @@ export const getAvailability = createServerFn({ method: "GET" })
     const duration = service.duration_minutes as number;
 
     // Eligible stylists: active, perform this service, working that weekday
-    let stylistQuery = supabase
+    let skillQuery = supabase
       .from("stylist_services")
-      .select("stylist_id, stylists!inner(id, active), stylist_schedules!inner(start_time, end_time, is_off, weekday)")
+      .select("stylist_id, stylists!inner(id, active)")
       .eq("service_id", data.serviceId)
-      .eq("stylists.active", true)
-      .eq("stylist_schedules.weekday", weekday)
-      .eq("stylist_schedules.is_off", false);
-    if (data.stylistId) stylistQuery = stylistQuery.eq("stylist_id", data.stylistId);
-    const { data: eligible } = await stylistQuery;
+      .eq("stylists.active", true);
+    if (data.stylistId) skillQuery = skillQuery.eq("stylist_id", data.stylistId);
+    const { data: eligible } = await skillQuery;
+    const stylistIds = [...new Set((eligible ?? []).map((e: any) => e.stylist_id as string))];
+    if (stylistIds.length === 0) return { date, closed: true, slots: [] };
 
-    const stylists = (eligible ?? []).map((e: any) => ({
-      id: e.stylist_id as string,
-      start: toMinutes(e.stylist_schedules.start_time),
-      end: toMinutes(e.stylist_schedules.end_time),
+    const { data: schedules } = await supabase
+      .from("stylist_schedules")
+      .select("stylist_id, start_time, end_time")
+      .in("stylist_id", stylistIds)
+      .eq("weekday", weekday)
+      .eq("is_off", false);
+
+    const stylists = (schedules ?? []).map((s: any) => ({
+      id: s.stylist_id as string,
+      start: toMinutes(s.start_time),
+      end: toMinutes(s.end_time),
     }));
     if (stylists.length === 0) return { date, closed: true, slots: [] };
+
 
     // Existing bookings that day for those stylists
     const dayStart = `${date}T00:00:00+00:00`;
