@@ -305,3 +305,69 @@ export const cancelBookingByReference = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     return { ok: true };
   });
+
+// ---------- Signed-in customer appointments ----------
+
+const myBookingsSchema = z.object({ accessToken: z.string().min(10) });
+
+export interface MyBookingDto {
+  id: string;
+  reference: string | null;
+  scheduled_at: string;
+  duration_minutes: number;
+  price_pence: number;
+  status: string;
+  service_name: string;
+  stylist_name: string;
+}
+
+async function userFromToken(accessToken: string) {
+  const { getSupabaseAdmin } = await import("@/lib/supabase/admin.server");
+  const supabase = getSupabaseAdmin();
+  const { data, error } = await supabase.auth.getUser(accessToken);
+  if (error || !data.user) throw new Error("Please sign in again.");
+  return { supabase, userId: data.user.id };
+}
+
+export const listMyBookings = createServerFn({ method: "POST" })
+  .inputValidator(myBookingsSchema)
+  .handler(async ({ data }): Promise<MyBookingDto[]> => {
+    const { supabase, userId } = await userFromToken(data.accessToken);
+    const { data: rows, error } = await supabase
+      .from("bookings")
+      .select("id, reference, scheduled_at, duration_minutes, price_pence, status, services(name), stylists(full_name)")
+      .eq("customer_id", userId)
+      .order("scheduled_at", { ascending: false });
+    if (error) throw new Error(error.message);
+    return (rows ?? []).map((b: any) => ({
+      id: b.id,
+      reference: b.reference,
+      scheduled_at: b.scheduled_at,
+      duration_minutes: b.duration_minutes,
+      price_pence: b.price_pence,
+      status: b.status,
+      service_name: b.services?.name ?? "Service",
+      stylist_name: b.stylists?.full_name ?? "Team",
+    }));
+  });
+
+export const cancelMyBooking = createServerFn({ method: "POST" })
+  .inputValidator(z.object({ accessToken: z.string().min(10), id: z.string().uuid() }))
+  .handler(async ({ data }) => {
+    const { supabase, userId } = await userFromToken(data.accessToken);
+    const { data: booking } = await supabase
+      .from("bookings")
+      .select("id, scheduled_at, customer_id")
+      .eq("id", data.id)
+      .maybeSingle();
+    if (!booking || booking.customer_id !== userId) throw new Error("Booking not found.");
+    if (new Date(booking.scheduled_at).getTime() - Date.now() < 2 * 3600 * 1000) {
+      throw new Error("This booking is within 2 hours — please call the salon to cancel.");
+    }
+    const { error } = await supabase
+      .from("bookings")
+      .update({ status: "cancelled", updated_at: new Date().toISOString() })
+      .eq("id", data.id);
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
