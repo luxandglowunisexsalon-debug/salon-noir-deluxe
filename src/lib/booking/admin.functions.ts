@@ -43,12 +43,18 @@ export const adminListBookings = createServerFn({ method: "POST" })
     const { data: rows, error } = await supabase
       .from("bookings")
       .select(
-        "id, reference, scheduled_at, duration_minutes, price_pence, status, notes, guest_name, guest_phone, customer_id, services(name), stylists(full_name), profiles:customer_id(full_name, phone)",
+        "id, reference, scheduled_at, duration_minutes, price_pence, status, notes, guest_name, guest_phone, customer_id, services(name), stylists(full_name)",
       )
       .gte("scheduled_at", `${data.from}T00:00:00+00:00`)
       .lte("scheduled_at", `${data.to}T23:59:59+00:00`)
       .order("scheduled_at");
     if (error) throw new Error(error.message);
+    const customerIds = [...new Set((rows ?? []).map((b: any) => b.customer_id).filter(Boolean))] as string[];
+    const profiles = new Map<string, { full_name: string | null; phone: string | null }>();
+    if (customerIds.length) {
+      const { data: profs } = await supabase.from("profiles").select("user_id, full_name, phone").in("user_id", customerIds);
+      for (const p of profs ?? []) profiles.set(p.user_id as string, { full_name: p.full_name, phone: p.phone });
+    }
     return (rows ?? []).map((b: any) => ({
       id: b.id,
       reference: b.reference,
@@ -57,8 +63,8 @@ export const adminListBookings = createServerFn({ method: "POST" })
       price_pence: b.price_pence,
       status: b.status,
       notes: b.notes,
-      customer_name: b.guest_name ?? b.profiles?.full_name ?? "Client",
-      customer_phone: b.guest_phone ?? b.profiles?.phone ?? null,
+      customer_name: b.guest_name ?? profiles.get(b.customer_id)?.full_name ?? "Client",
+      customer_phone: b.guest_phone ?? profiles.get(b.customer_id)?.phone ?? null,
       service_name: b.services?.name ?? "Service",
       stylist_name: b.stylists?.full_name ?? "Team",
     }));
