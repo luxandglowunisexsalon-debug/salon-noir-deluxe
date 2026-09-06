@@ -163,8 +163,9 @@ function Overview() {
       </div>
 
       <Card title="Today's chair">
-        <TableBookings rows={adminBookings.slice(0, 4)} />
+        <BookingDiary compact />
       </Card>
+
     </div>
   );
 }
