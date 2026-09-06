@@ -186,40 +186,9 @@ function SparkChart() {
 }
 
 function BookingsTab() {
-  return (
-    <Card title="All bookings">
-      <TableBookings rows={adminBookings} />
-    </Card>
-  );
+  return <BookingDiary />;
 }
 
-function TableBookings({ rows }: { rows: typeof adminBookings }) {
-  return (
-    <div className="overflow-x-auto">
-      <table className="w-full min-w-[700px] text-sm">
-        <thead className="text-left text-xs uppercase tracking-[0.18em] text-muted-foreground">
-          <tr><th className="py-3">Customer</th><th>Service</th><th>Barber</th><th>When</th><th>Status</th><th></th></tr>
-        </thead>
-        <tbody className="divide-y divide-border">
-          {rows.map((b) => (
-            <tr key={b.id}>
-              <td className="py-4 text-charcoal">{b.customer}</td>
-              <td className="text-muted-foreground">{b.service}</td>
-              <td className="text-muted-foreground">{b.barber}</td>
-              <td className="text-charcoal">{b.date}</td>
-              <td>
-                <span className={`inline-flex rounded-full px-3 py-1 text-[11px] tracking-[0.15em] uppercase ${
-                  b.status === "Confirmed" ? "bg-cream text-charcoal" : "bg-gold text-charcoal"
-                }`}>{b.status}</span>
-              </td>
-              <td className="text-right text-[11px] tracking-[0.2em] uppercase text-gold">Manage</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
 
 function CustomersTab() {
   return (
