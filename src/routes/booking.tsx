@@ -40,8 +40,6 @@ const money = (p: number) => `£${(p / 100).toFixed(p % 100 === 0 ? 0 : 2)}`;
 
 function BookingPage() {
   const { session } = useAuth();
-  const servicesFn = useServerFn(listServices);
-  const stylistsFn = useServerFn(listStylists);
   const availabilityFn = useServerFn(getAvailability);
   const createFn = useServerFn(createBooking);
 
@@ -55,8 +53,8 @@ function BookingPage() {
   const [email, setEmail] = useState("");
   const [notes, setNotes] = useState("");
 
-  const servicesQ = useQuery({ queryKey: ["services"], queryFn: () => servicesFn({}) });
-  const stylistsQ = useQuery({ queryKey: ["stylists"], queryFn: () => stylistsFn({}) });
+  const servicesQ = useQuery({ queryKey: ["services"], queryFn: () => listServices() });
+  const stylistsQ = useQuery({ queryKey: ["stylists"], queryFn: () => listStylists() });
 
   const services = servicesQ.data ?? [];
   const service = services.find((s) => s.id === serviceId) ?? null;
