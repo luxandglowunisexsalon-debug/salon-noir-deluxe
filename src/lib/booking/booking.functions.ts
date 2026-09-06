@@ -95,22 +95,30 @@ export const getAvailability = createServerFn({ method: "GET" })
     const duration = service.duration_minutes as number;
 
     // Eligible stylists: active, perform this service, working that weekday
-    let stylistQuery = supabase
+    let skillQuery = supabase
       .from("stylist_services")
-      .select("stylist_id, stylists!inner(id, active), stylist_schedules!inner(start_time, end_time, is_off, weekday)")
+      .select("stylist_id, stylists!inner(id, active)")
       .eq("service_id", data.serviceId)
-      .eq("stylists.active", true)
-      .eq("stylist_schedules.weekday", weekday)
-      .eq("stylist_schedules.is_off", false);
-    if (data.stylistId) stylistQuery = stylistQuery.eq("stylist_id", data.stylistId);
-    const { data: eligible } = await stylistQuery;
+      .eq("stylists.active", true);
+    if (data.stylistId) skillQuery = skillQuery.eq("stylist_id", data.stylistId);
+    const { data: eligible } = await skillQuery;
+    const stylistIds = [...new Set((eligible ?? []).map((e: any) => e.stylist_id as string))];
+    if (stylistIds.length === 0) return { date, closed: true, slots: [] };
 
-    const stylists = (eligible ?? []).map((e: any) => ({
-      id: e.stylist_id as string,
-      start: toMinutes(e.stylist_schedules.start_time),
-      end: toMinutes(e.stylist_schedules.end_time),
+    const { data: schedules } = await supabase
+      .from("stylist_schedules")
+      .select("stylist_id, start_time, end_time")
+      .in("stylist_id", stylistIds)
+      .eq("weekday", weekday)
+      .eq("is_off", false);
+
+    const stylists = (schedules ?? []).map((s: any) => ({
+      id: s.stylist_id as string,
+      start: toMinutes(s.start_time),
+      end: toMinutes(s.end_time),
     }));
     if (stylists.length === 0) return { date, closed: true, slots: [] };
+
 
     // Existing bookings that day for those stylists
     const dayStart = `${date}T00:00:00+00:00`;
@@ -197,15 +205,21 @@ export const createBooking = createServerFn({ method: "POST" })
       const weekday = new Date(`${data.date}T00:00:00Z`).getUTCDay();
       const { data: eligible } = await supabase
         .from("stylist_services")
-        .select("stylist_id, stylists!inner(active), stylist_schedules!inner(start_time, end_time, is_off, weekday)")
+        .select("stylist_id, stylists!inner(active)")
         .eq("service_id", data.serviceId)
-        .eq("stylists.active", true)
-        .eq("stylist_schedules.weekday", weekday)
-        .eq("stylist_schedules.is_off", false);
+        .eq("stylists.active", true);
+      const eligibleIds = [...new Set((eligible ?? []).map((e: any) => e.stylist_id as string))];
+      const { data: schedules } = await supabase
+        .from("stylist_schedules")
+        .select("stylist_id, start_time, end_time")
+        .in("stylist_id", eligibleIds.length ? eligibleIds : ["00000000-0000-0000-0000-000000000000"])
+        .eq("weekday", weekday)
+        .eq("is_off", false);
       const slotMin = toMinutes(data.time);
-      const candidates = (eligible ?? [])
-        .filter((e: any) => toMinutes(e.stylist_schedules.start_time) <= slotMin && toMinutes(e.stylist_schedules.end_time) >= slotMin + service.duration_minutes)
-        .map((e: any) => e.stylist_id as string);
+      const candidates = (schedules ?? [])
+        .filter((s: any) => toMinutes(s.start_time) <= slotMin && toMinutes(s.end_time) >= slotMin + service.duration_minutes)
+        .map((s: any) => s.stylist_id as string);
+
       const { data: clashes } = await supabase
         .from("bookings")
         .select("stylist_id, scheduled_at, duration_minutes")
@@ -288,6 +302,72 @@ export const cancelBookingByReference = createServerFn({ method: "POST" })
       throw new Error("This booking is within 2 hours — please call the salon to cancel.");
     }
     const { error } = await supabase.from("bookings").update({ status: "cancelled", updated_at: new Date().toISOString() }).eq("id", booking.id);
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
+
+// ---------- Signed-in customer appointments ----------
+
+const myBookingsSchema = z.object({ accessToken: z.string().min(10) });
+
+export interface MyBookingDto {
+  id: string;
+  reference: string | null;
+  scheduled_at: string;
+  duration_minutes: number;
+  price_pence: number;
+  status: string;
+  service_name: string;
+  stylist_name: string;
+}
+
+async function userFromToken(accessToken: string) {
+  const { getSupabaseAdmin } = await import("@/lib/supabase/admin.server");
+  const supabase = getSupabaseAdmin();
+  const { data, error } = await supabase.auth.getUser(accessToken);
+  if (error || !data.user) throw new Error("Please sign in again.");
+  return { supabase, userId: data.user.id };
+}
+
+export const listMyBookings = createServerFn({ method: "POST" })
+  .inputValidator(myBookingsSchema)
+  .handler(async ({ data }): Promise<MyBookingDto[]> => {
+    const { supabase, userId } = await userFromToken(data.accessToken);
+    const { data: rows, error } = await supabase
+      .from("bookings")
+      .select("id, reference, scheduled_at, duration_minutes, price_pence, status, services(name), stylists(full_name)")
+      .eq("customer_id", userId)
+      .order("scheduled_at", { ascending: false });
+    if (error) throw new Error(error.message);
+    return (rows ?? []).map((b: any) => ({
+      id: b.id,
+      reference: b.reference,
+      scheduled_at: b.scheduled_at,
+      duration_minutes: b.duration_minutes,
+      price_pence: b.price_pence,
+      status: b.status,
+      service_name: b.services?.name ?? "Service",
+      stylist_name: b.stylists?.full_name ?? "Team",
+    }));
+  });
+
+export const cancelMyBooking = createServerFn({ method: "POST" })
+  .inputValidator(z.object({ accessToken: z.string().min(10), id: z.string().uuid() }))
+  .handler(async ({ data }) => {
+    const { supabase, userId } = await userFromToken(data.accessToken);
+    const { data: booking } = await supabase
+      .from("bookings")
+      .select("id, scheduled_at, customer_id")
+      .eq("id", data.id)
+      .maybeSingle();
+    if (!booking || booking.customer_id !== userId) throw new Error("Booking not found.");
+    if (new Date(booking.scheduled_at).getTime() - Date.now() < 2 * 3600 * 1000) {
+      throw new Error("This booking is within 2 hours — please call the salon to cancel.");
+    }
+    const { error } = await supabase
+      .from("bookings")
+      .update({ status: "cancelled", updated_at: new Date().toISOString() })
+      .eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
   });
