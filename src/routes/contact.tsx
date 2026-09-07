@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { SALON_CONFIG } from "@/lib/salon-config";
 import { Phone, Mail, MessageCircle, MapPin } from "lucide-react";
+import storefrontAsset from "@/assets/lux-glow-storefront.jpeg.asset.json";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -65,6 +66,9 @@ function ContactPage() {
             </button>
           </div>
         </form>
+      </section>
+      <section className="border-y border-border">
+        <img src={storefrontAsset.url} alt="Lux & Glow storefront in Ashford" loading="lazy" className="h-[55vh] min-h-[28rem] w-full object-cover object-center" />
       </section>
     </SiteShell>
   );

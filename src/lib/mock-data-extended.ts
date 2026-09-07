@@ -2,6 +2,10 @@ import shaveImg from "@/assets/service-shave.jpg";
 import cutImg from "@/assets/service-haircut.jpg";
 import beardImg from "@/assets/service-beard.jpg";
 import heroImg from "@/assets/hero-salon.jpg";
+import storefrontAsset from "@/assets/lux-glow-storefront.jpeg.asset.json";
+import interiorWideAsset from "@/assets/lux-glow-interior-wide.jpeg.asset.json";
+import interiorChairsAsset from "@/assets/lux-glow-interior-chairs.jpeg.asset.json";
+import windowAsset from "@/assets/lux-glow-window.jpeg.asset.json";
 
 // --- Pricing / Membership ---
 export const membershipPlans = [
@@ -101,15 +105,17 @@ export const galleryItems = [
   { id: "g1", src: cutImg, category: "Cuts", title: "The Ashford Sweep" },
   { id: "g2", src: beardImg, category: "Beards", title: "Sculpted Long Beard" },
   { id: "g3", src: shaveImg, category: "Shaves", title: "Heritage Hot-Towel" },
-  { id: "g4", src: heroImg, category: "Interiors", title: "Reading Room" },
+  { id: "g4", src: interiorWideAsset.url, category: "Interiors", title: "The Salon Floor" },
   { id: "g5", src: cutImg, category: "Weddings", title: "Claridge's Groom" },
   { id: "g6", src: beardImg, category: "Beards", title: "Salt & Pepper Trim" },
   { id: "g7", src: cutImg, category: "Cuts", title: "Side Part, Soft Finish" },
   { id: "g8", src: shaveImg, category: "Shaves", title: "Single-Blade Ritual" },
-  { id: "g9", src: heroImg, category: "Interiors", title: "Woodthorpe Road Chair" },
+  { id: "g9", src: interiorChairsAsset.url, category: "Interiors", title: "Styling Stations" },
   { id: "g10", src: cutImg, category: "Weddings", title: "Country House Wedding" },
   { id: "g11", src: beardImg, category: "Beards", title: "The Curated Stubble" },
   { id: "g12", src: cutImg, category: "Cuts", title: "Crop with Texture" },
+  { id: "g13", src: storefrontAsset.url, category: "Interiors", title: "Lux & Glow, Ashford" },
+  { id: "g14", src: windowAsset.url, category: "Interiors", title: "A View Through the Window" },
 ];
 
 export const beforeAfterPairs = [

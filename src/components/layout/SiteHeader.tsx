@@ -3,6 +3,7 @@ import { Menu, X, UserRound } from "lucide-react";
 import { useState } from "react";
 import { SALON_CONFIG } from "@/lib/salon-config";
 import { useAuth } from "@/lib/auth-context";
+import logoAsset from "@/assets/lux-glow-logo.jpeg.asset.json";
 
 const nav = [
   { to: "/", label: "House" },
@@ -23,13 +24,12 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-ivory/85 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:h-20 md:px-10">
-        <Link to="/" className="flex items-center gap-3">
-          <span className="grid h-9 w-9 place-items-center rounded-full border border-champagne/60 font-display text-sm text-charcoal">
-            {SALON_CONFIG.logoMark}
-          </span>
-          <span className="hidden font-display text-lg leading-none tracking-tight text-charcoal sm:block">
-            {SALON_CONFIG.name}
-          </span>
+        <Link to="/" className="flex items-center" aria-label={`${SALON_CONFIG.name} home`}>
+          <img
+            src={logoAsset.url}
+            alt="Lux & Glow Unisex Salon"
+            className="h-10 w-auto object-contain md:h-12"
+          />
         </Link>
 
         <nav className="hidden items-center gap-7 lg:flex">

@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { SALON_CONFIG } from "@/lib/salon-config";
-import heroImg from "@/assets/hero-salon.jpg";
+import interiorAsset from "@/assets/lux-glow-interior-wide.jpeg.asset.json";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -23,22 +23,19 @@ function AboutPage() {
           <h1 className="mt-4 font-display text-4xl text-charcoal md:text-6xl">A house of craft, considered to the inch.</h1>
         </div>
         <div className="space-y-6 text-muted-foreground md:col-span-6 md:col-start-7 md:pt-4">
-          <p>
-            {SALON_CONFIG.name} began as a single chair on Woodthorpe Road, opened by two friends with a quiet belief: that a
-            client's grooming ought to feel like a private appointment with a tailor, not a transaction.
-          </p>
+          <p>{SALON_CONFIG.name} is a welcoming salon on Woodthorpe Road, created to bring expert barbering, hair and beauty treatments together in one considered space.</p>
           <p>
             Since day one, the philosophy hasn't moved an inch. Every stylist and barber is fully qualified and experienced. Every
             ritual — the warm towels, the hand-blended oils, the single-blade finish — is performed without rush, without compromise.
           </p>
           <p>
-            We are a member's house first. A grooming destination second. A traditional barber, never.
+            Whether you visit for a fresh fade, colour, a beauty treatment or an hour of head-spa calm, every appointment is tailored to you.
           </p>
         </div>
       </section>
 
       <section className="border-y border-border">
-        <img src={heroImg} alt="The salon" loading="lazy" className="h-[60vh] w-full object-cover" />
+        <img src={interiorAsset.url} alt="The bright interior of Lux & Glow salon in Ashford" loading="lazy" className="h-[60vh] w-full object-cover" />
       </section>
 
       <section className="mx-auto max-w-7xl px-5 py-24 md:px-10">

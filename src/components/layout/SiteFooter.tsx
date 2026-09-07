@@ -1,12 +1,13 @@
 import { Link } from "@tanstack/react-router";
 import { SALON_CONFIG } from "@/lib/salon-config";
+import logoAsset from "@/assets/lux-glow-logo.jpeg.asset.json";
 
 export function SiteFooter() {
   return (
     <footer className="border-t border-border bg-cream">
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 md:grid-cols-4 md:px-10">
         <div className="md:col-span-2">
-          <div className="font-display text-2xl text-charcoal">{SALON_CONFIG.name}</div>
+          <img src={logoAsset.url} alt="Lux & Glow Unisex Salon" className="h-16 w-auto object-contain" loading="lazy" />
           <p className="mt-2 text-sm text-muted-foreground">{SALON_CONFIG.tagline}</p>
           <div className="gold-rule mt-6" />
           <p className="mt-6 max-w-sm text-sm leading-relaxed text-muted-foreground">
