@@ -3,6 +3,7 @@ import { SiteShell } from "@/components/layout/SiteShell";
 import { SALON_CONFIG } from "@/lib/salon-config";
 import { membershipPlans, packageDeals, groomPackages } from "@/lib/mock-data-extended";
 import { Check, Sparkles } from "lucide-react";
+import headSpaMenuAsset from "@/assets/lux-glow-head-spa-menu.jpeg.asset.json";
 
 export const Route = createFileRoute("/pricing")({
   head: () => ({
@@ -29,6 +30,18 @@ function PricingPage() {
         <p className="mt-6 max-w-xl text-muted-foreground">
           Three considered ways to belong, plus curated packages for the diary that requires a little more.
         </p>
+      </section>
+
+      <section className="border-y border-border bg-charcoal">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-16 md:grid-cols-2 md:px-10 md:py-24">
+          <div>
+            <span className="text-[11px] uppercase tracking-[0.2em] text-champagne">Beauty & wellbeing</span>
+            <h2 className="mt-4 font-display text-3xl text-ivory md:text-5xl">Japanese head spa and beauty menu.</h2>
+            <p className="mt-5 max-w-md text-ivory/70">Discover head spa rituals, facials, manicures, pedicures and waxing. Reserve online or contact the salon for a tailored treatment plan.</p>
+            <Link to="/booking" className="mt-8 inline-block rounded-full border border-champagne px-7 py-3.5 text-[12px] uppercase tracking-[0.2em] text-champagne hover:bg-champagne hover:text-charcoal">Book a treatment</Link>
+          </div>
+          <img src={headSpaMenuAsset.url} alt="Lux & Glow Japanese head spa and beauty treatment price menu" loading="lazy" className="mx-auto max-h-[46rem] w-full max-w-lg object-contain shadow-luxe" />
+        </div>
       </section>
 
       {/* Memberships */}

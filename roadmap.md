@@ -6,4 +6,4 @@
 - [ ] Admin diary: live bookings, confirm/cancel/complete/no-show, add manual booking
 - [ ] Admin: manage services, stylists, opening hours, closures
 - [ ] Customer dashboard: real upcoming/past appointments with cancel
-- [ ] Integrate uploaded logo + salon photos across site
+- [x] Integrate uploaded logo + salon photos across site

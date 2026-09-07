@@ -8,7 +8,9 @@ import {
   instagramFeed,
   beforeAfter,
 } from "@/lib/mock-data";
-import heroImg from "@/assets/hero-salon.jpg";
+import storefrontAsset from "@/assets/lux-glow-storefront.jpeg.asset.json";
+import interiorAsset from "@/assets/lux-glow-interior-wide.jpeg.asset.json";
+import windowAsset from "@/assets/lux-glow-window.jpeg.asset.json";
 import { Star, Sparkles, Award, Clock, MapPin } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -104,14 +106,14 @@ function Home() {
 
 
 
-          <div className="md:col-span-6">
-            <div className="relative">
+          <div className="md:col-span-6 md:-mr-10">
+            <div className="relative h-[58vh] min-h-[32rem] overflow-hidden md:h-[70vh] md:max-h-[760px]">
               <img
-                src={heroImg}
-                alt="Interior of the salon"
-                className="aspect-[4/5] w-full rounded-[2px] object-cover shadow-luxe"
-                width={1600}
-                height={1100}
+                src={storefrontAsset.url}
+                alt="Lux & Glow Barber and Unisex Salon storefront in Ashford"
+                className="h-full w-full object-cover object-center shadow-luxe"
+                width={768}
+                height={1024}
               />
               <div className="absolute -bottom-6 -left-6 hidden bg-ivory p-6 shadow-luxe md:block">
                 <p className="eyebrow">The Glow Circle</p>
@@ -119,6 +121,20 @@ function Home() {
                   Member rituals, monthly grooming gifts & priority booking.
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-border bg-charcoal">
+        <div className="grid md:grid-cols-2">
+          <img src={interiorAsset.url} alt="Styling chairs inside Lux & Glow salon" loading="lazy" className="h-[28rem] w-full object-cover md:h-[36rem]" />
+          <div className="flex items-center px-7 py-14 md:px-16">
+            <div className="max-w-lg">
+              <span className="text-[11px] uppercase tracking-[0.2em] text-champagne">Inside Lux & Glow</span>
+              <h2 className="mt-5 font-display text-3xl text-ivory md:text-5xl">Bright, welcoming and made for every ritual.</h2>
+              <p className="mt-6 leading-relaxed text-ivory/70">From precision barbering and colour to Japanese head spa, nails and beauty treatments, our Ashford salon brings every service under one roof.</p>
+              <Link to="/gallery" className="mt-8 inline-block border-b border-champagne pb-1 text-[11px] uppercase tracking-[0.2em] text-champagne">Explore the salon</Link>
             </div>
           </div>
         </div>
@@ -252,8 +268,8 @@ function Home() {
             <a className="hidden eyebrow text-charcoal hover:text-gold md:block" href="#">Follow →</a>
           </div>
           <div className="mt-10 grid grid-cols-3 gap-2 md:grid-cols-6 md:gap-4">
-            {instagramFeed.map((src, i) => (
-              <img key={i} src={src} alt="" loading="lazy" className="aspect-square object-cover" />
+            {[interiorAsset.url, windowAsset.url, ...instagramFeed].slice(0, 6).map((src, i) => (
+              <img key={i} src={src} alt={i < 2 ? "Inside Lux & Glow salon" : "Lux & Glow salon work"} loading="lazy" className="aspect-square object-cover" />
             ))}
           </div>
         </div>
