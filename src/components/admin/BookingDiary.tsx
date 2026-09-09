@@ -25,7 +25,10 @@ async function token() {
   return data.session?.access_token ?? "";
 }
 
-const STATUS_ACTIONS: { label: string; value: "confirmed" | "completed" | "cancelled" | "no_show" }[] = [
+const STATUS_ACTIONS: {
+  label: string;
+  value: "confirmed" | "completed" | "cancelled" | "no_show";
+}[] = [
   { label: "Confirm", value: "confirmed" },
   { label: "Complete", value: "completed" },
   { label: "No-show", value: "no_show" },
@@ -37,7 +40,7 @@ export function BookingDiary({ compact = false }: { compact?: boolean }) {
   const statusFn = useServerFn(adminUpdateBookingStatus);
   const qc = useQueryClient();
 
-  const dates = useMemo(() => Array.from({ length: 14 }, (_, i) => isoDay(i)), []);
+  const dates = useMemo(() => Array.from({ length: 56 }, (_, i) => isoDay(i)), []);
   const [date, setDate] = useState(dates[0]);
 
   const bookingsQ = useQuery({
@@ -46,8 +49,10 @@ export function BookingDiary({ compact = false }: { compact?: boolean }) {
   });
 
   const setStatus = useMutation({
-    mutationFn: async (v: { id: string; status: "confirmed" | "completed" | "cancelled" | "no_show" }) =>
-      statusFn({ data: { accessToken: await token(), ...v } }),
+    mutationFn: async (v: {
+      id: string;
+      status: "confirmed" | "completed" | "cancelled" | "no_show";
+    }) => statusFn({ data: { accessToken: await token(), ...v } }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["admin-bookings"] }),
   });
 
@@ -64,10 +69,14 @@ export function BookingDiary({ compact = false }: { compact?: boolean }) {
                 key={d}
                 onClick={() => setDate(d)}
                 className={`w-16 shrink-0 border py-3 text-center transition ${
-                  date === d ? "border-charcoal bg-charcoal text-ivory" : "border-border text-charcoal hover:border-charcoal"
+                  date === d
+                    ? "border-charcoal bg-charcoal text-ivory"
+                    : "border-border text-charcoal hover:border-charcoal"
                 }`}
               >
-                <span className="block text-[11px] uppercase tracking-widest opacity-70">{DAYS[dt.getUTCDay()]}</span>
+                <span className="block text-[11px] uppercase tracking-widest opacity-70">
+                  {DAYS[dt.getUTCDay()]}
+                </span>
                 <span className="mt-1 block font-display text-lg">{dt.getUTCDate()}</span>
               </button>
             );
@@ -75,7 +84,11 @@ export function BookingDiary({ compact = false }: { compact?: boolean }) {
         </div>
       )}
 
-      {!compact && <p className="eyebrow mb-4">{prettyDate(date)} · {rows.length} booking{rows.length === 1 ? "" : "s"}</p>}
+      {!compact && (
+        <p className="eyebrow mb-4">
+          {prettyDate(date)} · {rows.length} booking{rows.length === 1 ? "" : "s"}
+        </p>
+      )}
 
       {bookingsQ.isLoading ? (
         <div className="flex items-center gap-2 py-8 text-sm text-muted-foreground">
@@ -92,21 +105,44 @@ export function BookingDiary({ compact = false }: { compact?: boolean }) {
           <table className="w-full min-w-[760px] text-sm">
             <thead className="text-left text-xs uppercase tracking-[0.18em] text-muted-foreground">
               <tr>
-                <th className="py-3">Time</th><th>Client</th><th>Service</th><th>Stylist</th><th>Status</th>
+                <th className="py-3">Time</th>
+                <th>Client</th>
+                <th>Service</th>
+                <th>Duration</th>
+                <th>Price</th>
+                <th>Status</th>
                 {!compact && <th className="text-right">Actions</th>}
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
               {(compact ? rows.slice(0, 5) : rows).map((b) => (
                 <tr key={b.id}>
-                  <td className="py-4 font-display text-charcoal">{b.scheduled_at.slice(11, 16)}</td>
+                  <td className="py-4 font-display text-charcoal">
+                    {b.scheduled_at.slice(11, 16)}
+                  </td>
                   <td className="text-charcoal">
                     {b.customer_name}
-                    {b.customer_phone && <span className="block text-xs text-muted-foreground">{b.customer_phone}</span>}
-                    {b.reference && <span className="block text-[11px] tracking-widest text-gold">{b.reference}</span>}
+                    {b.customer_phone && (
+                      <span className="block text-xs text-muted-foreground">
+                        {b.customer_phone}
+                      </span>
+                    )}
+                    {b.customer_email && (
+                      <span className="block text-xs text-muted-foreground">
+                        {b.customer_email}
+                      </span>
+                    )}
+                    {b.reference && (
+                      <span className="block text-[11px] tracking-widest text-gold">
+                        {b.reference}
+                      </span>
+                    )}
                   </td>
                   <td className="text-muted-foreground">{b.service_name}</td>
-                  <td className="text-muted-foreground">{b.stylist_name}</td>
+                  <td className="text-muted-foreground">{b.duration_minutes} min</td>
+                  <td className="font-display text-charcoal">
+                    £{(b.price_pence / 100).toFixed(b.price_pence % 100 === 0 ? 0 : 2)}
+                  </td>
                   <td>
                     <span className="inline-flex rounded-full bg-cream px-3 py-1 text-[11px] uppercase tracking-[0.15em] text-charcoal">
                       {b.status.replace("_", "-")}

@@ -10,7 +10,10 @@ async function requireAdmin(accessToken: string) {
   const supabase = getSupabaseAdmin();
   const { data, error } = await supabase.auth.getUser(accessToken);
   if (error || !data.user) throw new Error("Not signed in.");
-  const { data: roles } = await supabase.from("user_roles").select("role").eq("user_id", data.user.id);
+  const { data: roles } = await supabase
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", data.user.id);
   const list = (roles ?? []).map((r: any) => r.role as string);
   if (!list.includes("admin") && !list.includes("super_admin")) throw new Error("Admins only.");
   return supabase;
@@ -26,6 +29,7 @@ export interface AdminBookingDto {
   notes: string | null;
   customer_name: string;
   customer_phone: string | null;
+  customer_email: string | null;
   service_name: string;
   stylist_name: string;
 }
@@ -43,17 +47,26 @@ export const adminListBookings = createServerFn({ method: "POST" })
     const { data: rows, error } = await supabase
       .from("bookings")
       .select(
-        "id, reference, scheduled_at, duration_minutes, price_pence, status, notes, guest_name, guest_phone, customer_id, services(name), stylists(full_name)",
+        "id, reference, scheduled_at, duration_minutes, price_pence, status, notes, guest_name, guest_phone, guest_email, customer_id, services(name), stylists(full_name)",
       )
       .gte("scheduled_at", `${data.from}T00:00:00+00:00`)
       .lte("scheduled_at", `${data.to}T23:59:59+00:00`)
       .order("scheduled_at");
     if (error) throw new Error(error.message);
-    const customerIds = [...new Set((rows ?? []).map((b: any) => b.customer_id).filter(Boolean))] as string[];
+    const customerIds = [
+      ...new Set((rows ?? []).map((b: any) => b.customer_id).filter(Boolean)),
+    ] as string[];
     const profiles = new Map<string, { full_name: string | null; phone: string | null }>();
     if (customerIds.length) {
-      const { data: profs } = await supabase.from("profiles").select("user_id, full_name, phone").in("user_id", customerIds);
-      for (const p of profs ?? []) profiles.set(p.user_id as string, { full_name: p.full_name, phone: p.phone });
+      const { data: profs } = await supabase
+        .from("profiles")
+        .select("user_id, full_name, phone")
+        .in("user_id", customerIds);
+      for (const p of profs ?? [])
+        profiles.set(p.user_id as string, {
+          full_name: p.full_name,
+          phone: p.phone,
+        });
     }
     return (rows ?? []).map((b: any) => ({
       id: b.id,
@@ -65,6 +78,7 @@ export const adminListBookings = createServerFn({ method: "POST" })
       notes: b.notes,
       customer_name: b.guest_name ?? profiles.get(b.customer_id)?.full_name ?? "Client",
       customer_phone: b.guest_phone ?? profiles.get(b.customer_id)?.phone ?? null,
+      customer_email: b.guest_email ?? null,
       service_name: b.services?.name ?? "Service",
       stylist_name: b.stylists?.full_name ?? "Team",
     }));
@@ -93,7 +107,12 @@ export const adminUpdateBookingStatus = createServerFn({ method: "POST" })
 const tokenOnly = z.object({ accessToken: z.string().min(10) });
 
 function slugify(v: string) {
-  return v.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60);
+  return v
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 60);
 }
 
 export interface AdminServiceDto {
@@ -111,7 +130,10 @@ export const adminListCategories = createServerFn({ method: "POST" })
   .inputValidator(tokenOnly)
   .handler(async ({ data }): Promise<{ id: string; name: string }[]> => {
     const supabase = await requireAdmin(data.accessToken);
-    const { data: rows, error } = await supabase.from("service_categories").select("id, name").order("sort_order");
+    const { data: rows, error } = await supabase
+      .from("service_categories")
+      .select("id, name")
+      .order("sort_order");
     if (error) throw new Error(error.message);
     return rows ?? [];
   });
@@ -161,18 +183,22 @@ export const adminSaveService = createServerFn({ method: "POST" })
     }
     const { data: created, error } = await supabase
       .from("services")
-      .insert({ ...payload, slug: `${slugify(data.name)}-${Math.random().toString(36).slice(2, 6)}` })
+      .insert({
+        ...payload,
+        slug: `${slugify(data.name)}-${Math.random().toString(36).slice(2, 6)}`,
+      })
       .select("id")
       .single();
     if (error) throw new Error(error.message);
     // New services are bookable with every active team member by default.
     const { data: stylists } = await supabase.from("stylists").select("id").eq("active", true);
     if (stylists?.length) {
-      await supabase
-        .from("stylist_services")
-        .upsert(stylists.map((s: any) => ({ stylist_id: s.id, service_id: created.id })), {
+      await supabase.from("stylist_services").upsert(
+        stylists.map((s: any) => ({ stylist_id: s.id, service_id: created.id })),
+        {
           onConflict: "stylist_id,service_id",
-        });
+        },
+      );
     }
     return { id: created.id as string };
   });
@@ -221,7 +247,11 @@ export const adminSaveStylist = createServerFn({ method: "POST" })
       if (error) throw new Error(error.message);
       return { id: data.id };
     }
-    const { data: created, error } = await supabase.from("stylists").insert(payload).select("id").single();
+    const { data: created, error } = await supabase
+      .from("stylists")
+      .insert(payload)
+      .select("id")
+      .single();
     if (error) throw new Error(error.message);
     // Give a new team member every active service and the salon's own hours.
     const [{ data: services }, { data: hours }] = await Promise.all([
@@ -229,11 +259,12 @@ export const adminSaveStylist = createServerFn({ method: "POST" })
       supabase.from("salon_hours").select("weekday, open_time, close_time, is_closed"),
     ]);
     if (services?.length) {
-      await supabase
-        .from("stylist_services")
-        .upsert(services.map((s: any) => ({ stylist_id: created.id, service_id: s.id })), {
+      await supabase.from("stylist_services").upsert(
+        services.map((s: any) => ({ stylist_id: created.id, service_id: s.id })),
+        {
           onConflict: "stylist_id,service_id",
-        });
+        },
+      );
     }
     if (hours?.length) {
       await supabase.from("stylist_schedules").insert(
@@ -251,16 +282,20 @@ export const adminSaveStylist = createServerFn({ method: "POST" })
 
 export const adminGetSchedules = createServerFn({ method: "POST" })
   .inputValidator(z.object({ accessToken: z.string().min(10), stylistId: z.string().uuid() }))
-  .handler(async ({ data }): Promise<{ weekday: number; start_time: string; end_time: string; is_off: boolean }[]> => {
-    const supabase = await requireAdmin(data.accessToken);
-    const { data: rows, error } = await supabase
-      .from("stylist_schedules")
-      .select("weekday, start_time, end_time, is_off")
-      .eq("stylist_id", data.stylistId)
-      .order("weekday");
-    if (error) throw new Error(error.message);
-    return rows ?? [];
-  });
+  .handler(
+    async ({
+      data,
+    }): Promise<{ weekday: number; start_time: string; end_time: string; is_off: boolean }[]> => {
+      const supabase = await requireAdmin(data.accessToken);
+      const { data: rows, error } = await supabase
+        .from("stylist_schedules")
+        .select("weekday, start_time, end_time, is_off")
+        .eq("stylist_id", data.stylistId)
+        .order("weekday");
+      if (error) throw new Error(error.message);
+      return rows ?? [];
+    },
+  );
 
 const dayRow = z.object({
   weekday: z.number().int().min(0).max(6),
@@ -270,7 +305,13 @@ const dayRow = z.object({
 });
 
 export const adminSaveSchedules = createServerFn({ method: "POST" })
-  .inputValidator(z.object({ accessToken: z.string().min(10), stylistId: z.string().uuid(), days: z.array(dayRow).length(7) }))
+  .inputValidator(
+    z.object({
+      accessToken: z.string().min(10),
+      stylistId: z.string().uuid(),
+      days: z.array(dayRow).length(7),
+    }),
+  )
   .handler(async ({ data }) => {
     const supabase = await requireAdmin(data.accessToken);
     await supabase.from("stylist_schedules").delete().eq("stylist_id", data.stylistId);
@@ -289,15 +330,21 @@ export const adminSaveSchedules = createServerFn({ method: "POST" })
 
 export const adminGetHours = createServerFn({ method: "POST" })
   .inputValidator(tokenOnly)
-  .handler(async ({ data }): Promise<{ weekday: number; open_time: string; close_time: string; is_closed: boolean }[]> => {
-    const supabase = await requireAdmin(data.accessToken);
-    const { data: rows, error } = await supabase
-      .from("salon_hours")
-      .select("weekday, open_time, close_time, is_closed")
-      .order("weekday");
-    if (error) throw new Error(error.message);
-    return rows ?? [];
-  });
+  .handler(
+    async ({
+      data,
+    }): Promise<
+      { weekday: number; open_time: string; close_time: string; is_closed: boolean }[]
+    > => {
+      const supabase = await requireAdmin(data.accessToken);
+      const { data: rows, error } = await supabase
+        .from("salon_hours")
+        .select("weekday, open_time, close_time, is_closed")
+        .order("weekday");
+      if (error) throw new Error(error.message);
+      return rows ?? [];
+    },
+  );
 
 export const adminSaveHours = createServerFn({ method: "POST" })
   .inputValidator(
@@ -321,7 +368,12 @@ export const adminSaveHours = createServerFn({ method: "POST" })
       const { error } = await supabase
         .from("salon_hours")
         .upsert(
-          { weekday: d.weekday, open_time: `${d.open_time}:00`, close_time: `${d.close_time}:00`, is_closed: d.is_closed },
+          {
+            weekday: d.weekday,
+            open_time: `${d.open_time}:00`,
+            close_time: `${d.close_time}:00`,
+            is_closed: d.is_closed,
+          },
           { onConflict: "weekday" },
         );
       if (error) throw new Error(error.message);
@@ -331,16 +383,18 @@ export const adminSaveHours = createServerFn({ method: "POST" })
 
 export const adminListClosures = createServerFn({ method: "POST" })
   .inputValidator(tokenOnly)
-  .handler(async ({ data }): Promise<{ id: string; closed_on: string; reason: string | null }[]> => {
-    const supabase = await requireAdmin(data.accessToken);
-    const { data: rows, error } = await supabase
-      .from("salon_closures")
-      .select("id, closed_on, reason")
-      .gte("closed_on", new Date().toISOString().slice(0, 10))
-      .order("closed_on");
-    if (error) throw new Error(error.message);
-    return rows ?? [];
-  });
+  .handler(
+    async ({ data }): Promise<{ id: string; closed_on: string; reason: string | null }[]> => {
+      const supabase = await requireAdmin(data.accessToken);
+      const { data: rows, error } = await supabase
+        .from("salon_closures")
+        .select("id, closed_on, reason")
+        .gte("closed_on", new Date().toISOString().slice(0, 10))
+        .order("closed_on");
+      if (error) throw new Error(error.message);
+      return rows ?? [];
+    },
+  );
 
 export const adminAddClosure = createServerFn({ method: "POST" })
   .inputValidator(
@@ -354,7 +408,10 @@ export const adminAddClosure = createServerFn({ method: "POST" })
     const supabase = await requireAdmin(data.accessToken);
     const { error } = await supabase
       .from("salon_closures")
-      .upsert({ closed_on: data.closed_on, reason: data.reason || null }, { onConflict: "closed_on" });
+      .upsert(
+        { closed_on: data.closed_on, reason: data.reason || null },
+        { onConflict: "closed_on" },
+      );
     if (error) throw new Error(error.message);
     return { ok: true };
   });

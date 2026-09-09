@@ -26,36 +26,42 @@ export interface StylistDto {
   active: boolean;
 }
 
-export const listServices = createServerFn({ method: "GET" }).handler(async (): Promise<ServiceDto[]> => {
-  const { getSupabaseAdmin } = await import("@/lib/supabase/admin.server");
-  const { data, error } = await getSupabaseAdmin()
-    .from("services")
-    .select("id, name, description, duration_minutes, price_pence, featured, service_categories(name)")
-    .eq("active", true)
-    .order("featured", { ascending: false })
-    .order("price_pence");
-  if (error) throw new Error(error.message);
-  return (data ?? []).map((s: any) => ({
-    id: s.id,
-    name: s.name,
-    description: s.description,
-    duration_minutes: s.duration_minutes,
-    price_pence: s.price_pence,
-    featured: s.featured,
-    category: s.service_categories?.name ?? null,
-  }));
-});
+export const listServices = createServerFn({ method: "GET" }).handler(
+  async (): Promise<ServiceDto[]> => {
+    const { getSupabaseAdmin } = await import("@/lib/supabase/admin.server");
+    const { data, error } = await getSupabaseAdmin()
+      .from("services")
+      .select(
+        "id, name, description, duration_minutes, price_pence, featured, service_categories(name)",
+      )
+      .eq("active", true)
+      .order("featured", { ascending: false })
+      .order("price_pence");
+    if (error) throw new Error(error.message);
+    return (data ?? []).map((s: any) => ({
+      id: s.id,
+      name: s.name,
+      description: s.description,
+      duration_minutes: s.duration_minutes,
+      price_pence: s.price_pence,
+      featured: s.featured,
+      category: s.service_categories?.name ?? null,
+    }));
+  },
+);
 
-export const listStylists = createServerFn({ method: "GET" }).handler(async (): Promise<StylistDto[]> => {
-  const { getSupabaseAdmin } = await import("@/lib/supabase/admin.server");
-  const { data, error } = await getSupabaseAdmin()
-    .from("stylists")
-    .select("id, full_name, title, active")
-    .eq("active", true)
-    .order("sort_order");
-  if (error) throw new Error(error.message);
-  return data ?? [];
-});
+export const listStylists = createServerFn({ method: "GET" }).handler(
+  async (): Promise<StylistDto[]> => {
+    const { getSupabaseAdmin } = await import("@/lib/supabase/admin.server");
+    const { data, error } = await getSupabaseAdmin()
+      .from("stylists")
+      .select("id, full_name, title, active")
+      .eq("active", true)
+      .order("sort_order");
+    if (error) throw new Error(error.message);
+    return data ?? [];
+  },
+);
 
 const availabilitySchema = z.object({
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
@@ -82,13 +88,20 @@ export const getAvailability = createServerFn({ method: "GET" })
 
     const today = new Date();
     const todayStr = today.toISOString().slice(0, 10);
-    const maxStr = new Date(today.getTime() + MAX_ADVANCE_DAYS * 86400000).toISOString().slice(0, 10);
+    const maxStr = new Date(today.getTime() + MAX_ADVANCE_DAYS * 86400000)
+      .toISOString()
+      .slice(0, 10);
     if (date < todayStr || date > maxStr) return { date, closed: true, slots: [] };
 
     const [{ data: hours }, { data: closure }, { data: service }] = await Promise.all([
       supabase.from("salon_hours").select("*").eq("weekday", weekday).maybeSingle(),
       supabase.from("salon_closures").select("id").eq("closed_on", date).maybeSingle(),
-      supabase.from("services").select("id, duration_minutes").eq("id", data.serviceId).eq("active", true).maybeSingle(),
+      supabase
+        .from("services")
+        .select("id, duration_minutes")
+        .eq("id", data.serviceId)
+        .eq("active", true)
+        .maybeSingle(),
     ]);
     if (!hours || hours.is_closed || closure || !service) return { date, closed: true, slots: [] };
 
@@ -119,14 +132,16 @@ export const getAvailability = createServerFn({ method: "GET" })
     }));
     if (stylists.length === 0) return { date, closed: true, slots: [] };
 
-
     // Existing bookings that day for those stylists
     const dayStart = `${date}T00:00:00+00:00`;
     const dayEnd = `${date}T23:59:59+00:00`;
     const { data: bookings } = await supabase
       .from("bookings")
       .select("stylist_id, scheduled_at, duration_minutes")
-      .in("stylist_id", stylists.map((s) => s.id))
+      .in(
+        "stylist_id",
+        stylists.map((s) => s.id),
+      )
       .gte("scheduled_at", dayStart)
       .lte("scheduled_at", dayEnd)
       .in("status", ["pending", "confirmed"]);
@@ -161,11 +176,11 @@ export const getAvailability = createServerFn({ method: "GET" })
   });
 
 const createSchema = z.object({
+  accessToken: z.string().min(10),
   serviceId: z.string().uuid(),
   stylistId: z.string().uuid().nullable().optional(),
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   time: z.string().regex(/^\d{2}:\d{2}$/),
-  customerId: z.string().uuid().nullable().optional(),
   guest: z
     .object({
       name: z.string().min(2),
@@ -182,6 +197,8 @@ export const createBooking = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const { getSupabaseAdmin } = await import("@/lib/supabase/admin.server");
     const supabase = getSupabaseAdmin();
+    const { data: authData, error: authError } = await supabase.auth.getUser(data.accessToken);
+    if (authError || !authData.user) throw new Error("Please sign in again before booking.");
 
     const { data: service } = await supabase
       .from("services")
@@ -212,12 +229,19 @@ export const createBooking = createServerFn({ method: "POST" })
       const { data: schedules } = await supabase
         .from("stylist_schedules")
         .select("stylist_id, start_time, end_time")
-        .in("stylist_id", eligibleIds.length ? eligibleIds : ["00000000-0000-0000-0000-000000000000"])
+        .in(
+          "stylist_id",
+          eligibleIds.length ? eligibleIds : ["00000000-0000-0000-0000-000000000000"],
+        )
         .eq("weekday", weekday)
         .eq("is_off", false);
       const slotMin = toMinutes(data.time);
       const candidates = (schedules ?? [])
-        .filter((s: any) => toMinutes(s.start_time) <= slotMin && toMinutes(s.end_time) >= slotMin + service.duration_minutes)
+        .filter(
+          (s: any) =>
+            toMinutes(s.start_time) <= slotMin &&
+            toMinutes(s.end_time) >= slotMin + service.duration_minutes,
+        )
         .map((s: any) => s.stylist_id as string);
 
       const { data: clashes } = await supabase
@@ -227,15 +251,17 @@ export const createBooking = createServerFn({ method: "POST" })
         .gte("scheduled_at", `${data.date}T00:00:00+00:00`)
         .lte("scheduled_at", `${data.date}T23:59:59+00:00`)
         .in("status", ["pending", "confirmed"]);
-      const freeStylist = candidates.find((id) =>
-        !(clashes ?? []).some((b: any) => {
-          if (b.stylist_id !== id) return false;
-          const d = new Date(b.scheduled_at);
-          const m = d.getUTCHours() * 60 + d.getUTCMinutes();
-          return slotMin < m + b.duration_minutes && slotMin + service.duration_minutes > m;
-        }),
+      const freeStylist = candidates.find(
+        (id) =>
+          !(clashes ?? []).some((b: any) => {
+            if (b.stylist_id !== id) return false;
+            const d = new Date(b.scheduled_at);
+            const m = d.getUTCHours() * 60 + d.getUTCMinutes();
+            return slotMin < m + b.duration_minutes && slotMin + service.duration_minutes > m;
+          }),
       );
-      if (!freeStylist) throw new Error("Sorry — that time has just been taken. Please pick another.");
+      if (!freeStylist)
+        throw new Error("Sorry — that time has just been taken. Please pick another.");
       stylistId = freeStylist;
     }
 
@@ -246,7 +272,7 @@ export const createBooking = createServerFn({ method: "POST" })
       duration_minutes: service.duration_minutes,
       price_pence: service.price_pence,
       status: "confirmed",
-      customer_id: data.customerId ?? null,
+      customer_id: authData.user.id,
       guest_name: data.guest?.name ?? null,
       guest_email: data.guest?.email || null,
       guest_phone: data.guest?.phone ?? null,
@@ -265,7 +291,11 @@ export const createBooking = createServerFn({ method: "POST" })
       throw new Error(error.message);
     }
 
-    const { data: stylist } = await supabase.from("stylists").select("full_name").eq("id", stylistId).maybeSingle();
+    const { data: stylist } = await supabase
+      .from("stylists")
+      .select("full_name")
+      .eq("id", stylistId)
+      .maybeSingle();
     return {
       id: booking.id,
       reference: booking.reference,
@@ -301,7 +331,10 @@ export const cancelBookingByReference = createServerFn({ method: "POST" })
     if (new Date(booking.scheduled_at).getTime() - Date.now() < 2 * 3600 * 1000) {
       throw new Error("This booking is within 2 hours — please call the salon to cancel.");
     }
-    const { error } = await supabase.from("bookings").update({ status: "cancelled", updated_at: new Date().toISOString() }).eq("id", booking.id);
+    const { error } = await supabase
+      .from("bookings")
+      .update({ status: "cancelled", updated_at: new Date().toISOString() })
+      .eq("id", booking.id);
     if (error) throw new Error(error.message);
     return { ok: true };
   });
@@ -335,7 +368,9 @@ export const listMyBookings = createServerFn({ method: "POST" })
     const { supabase, userId } = await userFromToken(data.accessToken);
     const { data: rows, error } = await supabase
       .from("bookings")
-      .select("id, reference, scheduled_at, duration_minutes, price_pence, status, services(name), stylists(full_name)")
+      .select(
+        "id, reference, scheduled_at, duration_minutes, price_pence, status, services(name), stylists(full_name)",
+      )
       .eq("customer_id", userId)
       .order("scheduled_at", { ascending: false });
     if (error) throw new Error(error.message);

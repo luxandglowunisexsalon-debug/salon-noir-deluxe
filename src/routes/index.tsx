@@ -1,13 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { SALON_CONFIG } from "@/lib/salon-config";
-import {
-  services,
-  testimonials,
-  promotions,
-  instagramFeed,
-  beforeAfter,
-} from "@/lib/mock-data";
+import { services, testimonials, instagramFeed, beforeAfter } from "@/lib/mock-data";
 import storefrontAsset from "@/assets/lux-glow-storefront.jpeg.asset.json";
 import interiorAsset from "@/assets/lux-glow-interior-wide.jpeg.asset.json";
 import windowAsset from "@/assets/lux-glow-window.jpeg.asset.json";
@@ -52,8 +46,18 @@ export const Route = createFileRoute("/")({
               opens: "10:00",
               closes: "19:00",
             },
-            { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "09:30", closes: "19:00" },
-            { "@type": "OpeningHoursSpecification", dayOfWeek: "Sunday", opens: "10:00", closes: "18:00" },
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: "Saturday",
+              opens: "09:30",
+              closes: "19:00",
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: "Sunday",
+              opens: "10:00",
+              closes: "18:00",
+            },
           ],
           sameAs: [SALON_CONFIG.googleBusiness],
         }),
@@ -62,7 +66,6 @@ export const Route = createFileRoute("/")({
   }),
   component: Home,
 });
-
 
 function Home() {
   const featured = services.filter((s) => s.featured);
@@ -80,8 +83,9 @@ function Home() {
               Barber & unisex salon in <em className="font-serif italic text-gold">Ashford</em>.
             </h1>
             <p className="mt-7 max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
-              {SALON_CONFIG.name} is a barber and unisex beauty salon on Woodthorpe Road — precision cuts and
-              skin fades, colour and styling, beard grooming, waxing and beauty treatments for women and men.
+              {SALON_CONFIG.name} is a barber and unisex beauty salon on Woodthorpe Road — precision
+              cuts and skin fades, colour and styling, beard grooming, waxing and beauty treatments
+              for women and men.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-4">
               <Link
@@ -98,13 +102,17 @@ function Home() {
               </Link>
             </div>
             <div className="mt-12 flex flex-wrap gap-x-10 gap-y-4 text-sm text-muted-foreground">
-              <span className="flex items-center gap-2"><Star className="h-4 w-4 text-gold" /> Walk-ins welcome</span>
-              <span className="flex items-center gap-2"><MapPin className="h-4 w-4 text-gold" /> 9 Woodthorpe Road, TW15 2RL</span>
-              <span className="flex items-center gap-2"><Clock className="h-4 w-4 text-gold" /> Open 7 days a week</span>
+              <span className="flex items-center gap-2">
+                <Star className="h-4 w-4 text-gold" /> Walk-ins welcome
+              </span>
+              <span className="flex items-center gap-2">
+                <MapPin className="h-4 w-4 text-gold" /> 9 Woodthorpe Road, TW15 2RL
+              </span>
+              <span className="flex items-center gap-2">
+                <Clock className="h-4 w-4 text-gold" /> Open 7 days a week
+              </span>
             </div>
           </div>
-
-
 
           <div className="md:col-span-6 md:-mr-10">
             <div className="relative h-[58vh] min-h-[32rem] overflow-hidden md:h-[70vh] md:max-h-[760px]">
@@ -128,13 +136,30 @@ function Home() {
 
       <section className="border-y border-border bg-charcoal">
         <div className="grid md:grid-cols-2">
-          <img src={interiorAsset.url} alt="Styling chairs inside Lux & Glow salon" loading="lazy" className="h-[28rem] w-full object-cover md:h-[36rem]" />
+          <img
+            src={interiorAsset.url}
+            alt="Styling chairs inside Lux & Glow salon"
+            loading="lazy"
+            className="h-[28rem] w-full object-cover md:h-[36rem]"
+          />
           <div className="flex items-center px-7 py-14 md:px-16">
             <div className="max-w-lg">
-              <span className="text-[11px] uppercase tracking-[0.2em] text-champagne">Inside Lux & Glow</span>
-              <h2 className="mt-5 font-display text-3xl text-ivory md:text-5xl">Bright, welcoming and made for every ritual.</h2>
-              <p className="mt-6 leading-relaxed text-ivory/70">From precision barbering and colour to Japanese head spa, nails and beauty treatments, our Ashford salon brings every service under one roof.</p>
-              <Link to="/gallery" className="mt-8 inline-block border-b border-champagne pb-1 text-[11px] uppercase tracking-[0.2em] text-champagne">Explore the salon</Link>
+              <span className="text-[11px] uppercase tracking-[0.2em] text-champagne">
+                Inside Lux & Glow
+              </span>
+              <h2 className="mt-5 font-display text-3xl text-ivory md:text-5xl">
+                Bright, welcoming and made for every ritual.
+              </h2>
+              <p className="mt-6 leading-relaxed text-ivory/70">
+                From precision barbering and colour to Japanese head spa, nails and beauty
+                treatments, our Ashford salon brings every service under one roof.
+              </p>
+              <Link
+                to="/gallery"
+                className="mt-8 inline-block border-b border-champagne pb-1 text-[11px] uppercase tracking-[0.2em] text-champagne"
+              >
+                Explore the salon
+              </Link>
             </div>
           </div>
         </div>
@@ -152,12 +177,17 @@ function Home() {
                 Curated grooming, end to end.
               </h2>
             </div>
-            <Link to="/services" className="eyebrow text-charcoal hover:text-gold">View full menu →</Link>
+            <Link to="/services" className="eyebrow text-charcoal hover:text-gold">
+              View full menu →
+            </Link>
           </div>
 
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {featured.map((s) => (
-              <article key={s.id} className="group bg-card shadow-soft transition hover:shadow-luxe">
+              <article
+                key={s.id}
+                className="group bg-card shadow-soft transition hover:shadow-luxe"
+              >
                 <div className="overflow-hidden">
                   <img
                     src={s.image}
@@ -167,12 +197,17 @@ function Home() {
                   />
                 </div>
                 <div className="space-y-3 p-6">
-                  <p className="eyebrow">{s.category} · {s.duration}</p>
+                  <p className="eyebrow">
+                    {s.category} · {s.duration}
+                  </p>
                   <h3 className="font-display text-xl text-charcoal">{s.name}</h3>
                   <p className="line-clamp-2 text-sm text-muted-foreground">{s.description}</p>
                   <div className="flex items-center justify-between border-t border-border pt-3">
                     <span className="font-display text-lg text-charcoal">£{s.price}</span>
-                    <Link to="/booking" className="text-[11px] tracking-[0.2em] uppercase text-gold hover:underline">
+                    <Link
+                      to="/booking"
+                      className="text-[11px] tracking-[0.2em] uppercase text-gold hover:underline"
+                    >
                       Reserve
                     </Link>
                   </div>
@@ -192,16 +227,29 @@ function Home() {
               A standard reserved for the few.
             </h2>
             <p className="mt-6 text-muted-foreground">
-              Every chair is led by a qualified stylist or barber with years of experience. Each appointment is unhurried,
-              private and tailored — from the consultation to the final finishing oil.
+              Every chair is led by a qualified stylist or barber with years of experience. Each
+              appointment is unhurried, private and tailored — from the consultation to the final
+              finishing oil.
             </p>
           </div>
           <div className="grid gap-8 md:col-span-7 sm:grid-cols-2">
             {[
               { i: Award, t: "Master craftsmen", d: "British Master Barbers Alliance certified." },
-              { i: Sparkles, t: "Heritage rituals", d: "Hot towels, hand-blended oils, single-blade shaves." },
-              { i: Clock, t: "Unhurried by design", d: "Generous appointment windows, never overbooked." },
-              { i: Star, t: "Members first", d: "The Glow Circle: priority chairs and quiet perks." },
+              {
+                i: Sparkles,
+                t: "Heritage rituals",
+                d: "Hot towels, hand-blended oils, single-blade shaves.",
+              },
+              {
+                i: Clock,
+                t: "Unhurried by design",
+                d: "Generous appointment windows, never overbooked.",
+              },
+              {
+                i: Star,
+                t: "Members first",
+                d: "The Glow Circle: priority chairs and quiet perks.",
+              },
             ].map(({ i: Icon, t, d }) => (
               <div key={t} className="border-l border-champagne/50 pl-5">
                 <Icon className="h-5 w-5 text-gold" />
@@ -216,14 +264,29 @@ function Home() {
       {/* BEFORE/AFTER */}
       <section className="border-y border-border bg-ivory">
         <div className="mx-auto max-w-7xl px-5 py-20 md:px-10 md:py-28">
-          <div className="flex items-center gap-3"><span className="gold-rule" /><span className="eyebrow">Studio</span></div>
-          <h2 className="mt-4 font-display text-3xl text-charcoal md:text-5xl">Before, after, always considered.</h2>
+          <div className="flex items-center gap-3">
+            <span className="gold-rule" />
+            <span className="eyebrow">Studio</span>
+          </div>
+          <h2 className="mt-4 font-display text-3xl text-charcoal md:text-5xl">
+            Before, after, always considered.
+          </h2>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {beforeAfter.map((b) => (
               <div key={b.name} className="overflow-hidden bg-card shadow-soft">
                 <div className="grid grid-cols-2">
-                  <img src={b.before} alt="before" loading="lazy" className="aspect-square object-cover" />
-                  <img src={b.after} alt="after" loading="lazy" className="aspect-square object-cover" />
+                  <img
+                    src={b.before}
+                    alt="before"
+                    loading="lazy"
+                    className="aspect-square object-cover"
+                  />
+                  <img
+                    src={b.after}
+                    alt="after"
+                    loading="lazy"
+                    className="aspect-square object-cover"
+                  />
                 </div>
                 <div className="flex items-center justify-between p-5">
                   <p className="font-display text-lg text-charcoal">{b.name}</p>
@@ -241,7 +304,9 @@ function Home() {
           {testimonials.map((t) => (
             <figure key={t.name} className="border-t border-champagne/60 pt-8">
               <div className="flex gap-1 text-gold">
-                {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-3.5 w-3.5 fill-current" />)}
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="h-3.5 w-3.5 fill-current" />
+                ))}
               </div>
               <blockquote className="mt-5 font-serif text-xl leading-snug text-charcoal italic">
                 "{t.quote}"
@@ -265,52 +330,60 @@ function Home() {
                 {SALON_CONFIG.social.instagram}
               </h2>
             </div>
-            <a className="hidden eyebrow text-charcoal hover:text-gold md:block" href="#">Follow →</a>
+            <a className="hidden eyebrow text-charcoal hover:text-gold md:block" href="#">
+              Follow →
+            </a>
           </div>
           <div className="mt-10 grid grid-cols-3 gap-2 md:grid-cols-6 md:gap-4">
             {[interiorAsset.url, windowAsset.url, ...instagramFeed].slice(0, 6).map((src, i) => (
-              <img key={i} src={src} alt={i < 2 ? "Inside Lux & Glow salon" : "Lux & Glow salon work"} loading="lazy" className="aspect-square object-cover" />
+              <img
+                key={i}
+                src={src}
+                alt={i < 2 ? "Inside Lux & Glow salon" : "Lux & Glow salon work"}
+                loading="lazy"
+                className="aspect-square object-cover"
+              />
             ))}
           </div>
         </div>
       </section>
 
-      {/* LOYALTY + PROMOS */}
+      {/* PRICING + BOOKING */}
       <section className="mx-auto max-w-7xl px-5 py-20 md:px-10 md:py-28">
         <div className="grid gap-12 md:grid-cols-2">
-          <div className="bg-charcoal p-10 text-ivory md:p-14">
-            <span className="text-[11px] tracking-[0.2em] uppercase text-champagne">Membership</span>
-            <h2 className="mt-4 font-display text-3xl md:text-4xl">{SALON_CONFIG.loyalty.name}</h2>
-            <p className="mt-4 max-w-md text-sm text-ivory/75">
-              Earn {SALON_CONFIG.loyalty.pointsPerPound} points for every £1 spent. Unlock four tiers
-              of considered perks — from monthly grooming gifts to a private suite.
+          <div className="bg-cream p-10 md:p-14">
+            <span className="eyebrow">The menu</span>
+            <h2 className="mt-4 font-display text-3xl text-charcoal md:text-4xl">
+              Treatments, clearly priced.
+            </h2>
+            <p className="mt-4 max-w-md text-muted-foreground">
+              Browse the full treatment menu, including Japanese head spa, facials, waxing,
+              manicures and pedicures.
             </p>
-            <ul className="mt-8 space-y-3">
-              {SALON_CONFIG.loyalty.tiers.map((t) => (
-                <li key={t.name} className="flex items-center justify-between border-b border-ivory/15 pb-3 text-sm">
-                  <span className="font-display text-base text-champagne">{t.name}</span>
-                  <span className="text-ivory/70">{t.perk}</span>
-                </li>
-              ))}
-            </ul>
-            <Link to="/dashboard" className="mt-8 inline-block rounded-full border border-champagne px-6 py-3 text-[11px] tracking-[0.2em] uppercase text-champagne hover:bg-champagne hover:text-charcoal">
-              Join the Circle
+            <Link
+              to="/services"
+              className="mt-8 inline-block rounded-full bg-charcoal px-6 py-3 text-[11px] tracking-[0.2em] uppercase text-ivory"
+            >
+              View services
             </Link>
           </div>
-
-          <div className="grid gap-6">
-            {promotions.map((p) => (
-              <div key={p.title} className="bg-card p-8 shadow-soft md:p-10">
-                <span className="eyebrow">{p.badge}</span>
-                <h3 className="mt-3 font-display text-2xl text-charcoal">{p.title}</h3>
-                <p className="mt-2 text-muted-foreground">{p.body}</p>
-              </div>
-            ))}
-            <div className="bg-cream p-8 md:p-10">
-              <span className="eyebrow">Pricing</span>
-              <p className="mt-3 font-display text-2xl text-charcoal">From £38 — £240</p>
-              <p className="mt-2 text-muted-foreground">Transparent pricing, no hidden fees. Cards & Apple Pay welcomed.</p>
-            </div>
+          <div className="bg-charcoal p-10 text-ivory md:p-14">
+            <span className="text-[11px] uppercase tracking-[0.2em] text-champagne">
+              Book online
+            </span>
+            <h2 className="mt-4 font-display text-3xl md:text-4xl">
+              Choose your treatment and time.
+            </h2>
+            <p className="mt-4 max-w-md text-ivory/75">
+              Create an account to see live availability, confirm your visit and manage it from your
+              dashboard.
+            </p>
+            <Link
+              to="/booking"
+              className="mt-8 inline-block rounded-full border border-champagne px-6 py-3 text-[11px] tracking-[0.2em] uppercase text-champagne"
+            >
+              Book an appointment
+            </Link>
           </div>
         </div>
       </section>
@@ -329,10 +402,16 @@ function Home() {
                 bespoke bookings.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <Link to="/booking" className="rounded-full bg-charcoal px-7 py-3.5 text-[12px] tracking-[0.2em] uppercase text-ivory hover:opacity-90">
+                <Link
+                  to="/booking"
+                  className="rounded-full bg-charcoal px-7 py-3.5 text-[12px] tracking-[0.2em] uppercase text-ivory hover:opacity-90"
+                >
                   Reserve Online
                 </Link>
-                <a href={`tel:${SALON_CONFIG.phone}`} className="rounded-full border border-charcoal/30 px-7 py-3.5 text-[12px] tracking-[0.2em] uppercase text-charcoal hover:border-charcoal">
+                <a
+                  href={`tel:${SALON_CONFIG.phone}`}
+                  className="rounded-full border border-charcoal/30 px-7 py-3.5 text-[12px] tracking-[0.2em] uppercase text-charcoal hover:border-charcoal"
+                >
                   {SALON_CONFIG.phone}
                 </a>
               </div>
@@ -341,7 +420,10 @@ function Home() {
               <p className="eyebrow">House Hours</p>
               <ul className="mt-5 space-y-3">
                 {SALON_CONFIG.hours.map((h) => (
-                  <li key={h.day} className="flex items-center justify-between border-b border-border pb-3 text-sm">
+                  <li
+                    key={h.day}
+                    className="flex items-center justify-between border-b border-border pb-3 text-sm"
+                  >
                     <span className="font-medium text-charcoal">{h.day}</span>
                     <span className="text-muted-foreground">{h.time}</span>
                   </li>

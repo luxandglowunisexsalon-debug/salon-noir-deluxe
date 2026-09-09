@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { SALON_CONFIG } from "@/lib/salon-config";
 import { membershipPlans, packageDeals, groomPackages } from "@/lib/mock-data-extended";
@@ -6,12 +6,25 @@ import { Check, Sparkles } from "lucide-react";
 import headSpaMenuAsset from "@/assets/lux-glow-head-spa-menu.jpeg.asset.json";
 
 export const Route = createFileRoute("/pricing")({
+  beforeLoad: () => {
+    throw redirect({ to: "/services" });
+  },
   head: () => ({
     meta: [
       { title: `Price List — ${SALON_CONFIG.name} Barber & Unisex Salon, Ashford` },
-      { name: "description", content: "Haircut, barbering, colour and beauty prices at Lux & Glow, 9 Woodthorpe Road, Ashford TW15." },
-      { property: "og:title", content: `Price List — ${SALON_CONFIG.name} Barber & Unisex Salon, Ashford` },
-      { property: "og:description", content: "Clear prices for cuts, fades, colour, waxing and bridal packages in Ashford." },
+      {
+        name: "description",
+        content:
+          "Haircut, barbering, colour and beauty prices at Lux & Glow, 9 Woodthorpe Road, Ashford TW15.",
+      },
+      {
+        property: "og:title",
+        content: `Price List — ${SALON_CONFIG.name} Barber & Unisex Salon, Ashford`,
+      },
+      {
+        property: "og:description",
+        content: "Clear prices for cuts, fades, colour, waxing and bridal packages in Ashford.",
+      },
     ],
     links: [{ rel: "canonical", href: "https://noble-manor-haven.lovable.app/pricing" }],
   }),
@@ -23,24 +36,45 @@ function PricingPage() {
     <SiteShell>
       {/* Hero */}
       <section className="mx-auto max-w-7xl px-5 pt-16 pb-12 md:px-10 md:pt-24">
-        <div className="flex items-center gap-3"><span className="gold-rule" /><span className="eyebrow">Pricing & Membership</span></div>
+        <div className="flex items-center gap-3">
+          <span className="gold-rule" />
+          <span className="eyebrow">Pricing & Membership</span>
+        </div>
         <h1 className="mt-5 max-w-3xl font-display text-4xl leading-[1.05] text-charcoal md:text-6xl">
           A house worth keeping — by the month, the visit or the season.
         </h1>
         <p className="mt-6 max-w-xl text-muted-foreground">
-          Three considered ways to belong, plus curated packages for the diary that requires a little more.
+          Three considered ways to belong, plus curated packages for the diary that requires a
+          little more.
         </p>
       </section>
 
       <section className="border-y border-border bg-charcoal">
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-16 md:grid-cols-2 md:px-10 md:py-24">
           <div>
-            <span className="text-[11px] uppercase tracking-[0.2em] text-champagne">Beauty & wellbeing</span>
-            <h2 className="mt-4 font-display text-3xl text-ivory md:text-5xl">Japanese head spa and beauty menu.</h2>
-            <p className="mt-5 max-w-md text-ivory/70">Discover head spa rituals, facials, manicures, pedicures and waxing. Reserve online or contact the salon for a tailored treatment plan.</p>
-            <Link to="/booking" className="mt-8 inline-block rounded-full border border-champagne px-7 py-3.5 text-[12px] uppercase tracking-[0.2em] text-champagne hover:bg-champagne hover:text-charcoal">Book a treatment</Link>
+            <span className="text-[11px] uppercase tracking-[0.2em] text-champagne">
+              Beauty & wellbeing
+            </span>
+            <h2 className="mt-4 font-display text-3xl text-ivory md:text-5xl">
+              Japanese head spa and beauty menu.
+            </h2>
+            <p className="mt-5 max-w-md text-ivory/70">
+              Discover head spa rituals, facials, manicures, pedicures and waxing. Reserve online or
+              contact the salon for a tailored treatment plan.
+            </p>
+            <Link
+              to="/booking"
+              className="mt-8 inline-block rounded-full border border-champagne px-7 py-3.5 text-[12px] uppercase tracking-[0.2em] text-champagne hover:bg-champagne hover:text-charcoal"
+            >
+              Book a treatment
+            </Link>
           </div>
-          <img src={headSpaMenuAsset.url} alt="Lux & Glow Japanese head spa and beauty treatment price menu" loading="lazy" className="mx-auto max-h-[46rem] w-full max-w-lg object-contain shadow-luxe" />
+          <img
+            src={headSpaMenuAsset.url}
+            alt="Lux & Glow Japanese head spa and beauty treatment price menu"
+            loading="lazy"
+            className="mx-auto max-h-[46rem] w-full max-w-lg object-contain shadow-luxe"
+          />
         </div>
       </section>
 
@@ -50,7 +84,9 @@ function PricingPage() {
           <div className="flex items-end justify-between">
             <div>
               <span className="eyebrow">Memberships</span>
-              <h2 className="mt-3 font-display text-3xl text-charcoal md:text-5xl">The Glow Circle</h2>
+              <h2 className="mt-3 font-display text-3xl text-charcoal md:text-5xl">
+                The Glow Circle
+              </h2>
             </div>
             <p className="hidden max-w-xs text-sm text-muted-foreground md:block">
               Cancel any month with a single message to your concierge.
@@ -62,7 +98,9 @@ function PricingPage() {
               <article
                 key={p.tier}
                 className={`relative bg-card p-8 md:p-10 transition ${
-                  p.featured ? "shadow-luxe md:-mt-6 md:pb-14 border border-champagne/40" : "shadow-soft"
+                  p.featured
+                    ? "shadow-luxe md:-mt-6 md:pb-14 border border-champagne/40"
+                    : "shadow-soft"
                 }`}
               >
                 {p.featured && (
@@ -115,21 +153,31 @@ function PricingPage() {
           </div>
           <div className="grid gap-5 md:col-span-8">
             {packageDeals.map((d) => (
-              <div key={d.name} className="grid items-center gap-6 border border-border bg-ivory p-7 md:grid-cols-12">
+              <div
+                key={d.name}
+                className="grid items-center gap-6 border border-border bg-ivory p-7 md:grid-cols-12"
+              >
                 <div className="md:col-span-7">
                   <h3 className="font-display text-2xl text-charcoal">{d.name}</h3>
                   <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm text-muted-foreground">
                     {d.items.map((i) => (
-                      <li key={i} className="before:mr-2 before:text-gold before:content-['—']">{i}</li>
+                      <li key={i} className="before:mr-2 before:text-gold before:content-['—']">
+                        {i}
+                      </li>
                     ))}
                   </ul>
                 </div>
                 <div className="flex items-center justify-between md:col-span-5 md:justify-end md:gap-8">
                   <div className="text-right">
-                    <span className="block text-[11px] tracking-[0.2em] uppercase text-gold">Save £{d.saving}</span>
+                    <span className="block text-[11px] tracking-[0.2em] uppercase text-gold">
+                      Save £{d.saving}
+                    </span>
                     <span className="font-display text-3xl text-charcoal">£{d.price}</span>
                   </div>
-                  <Link to="/booking" className="rounded-full border border-charcoal px-5 py-2.5 text-[11px] tracking-[0.2em] uppercase text-charcoal hover:bg-charcoal hover:text-ivory">
+                  <Link
+                    to="/booking"
+                    className="rounded-full border border-charcoal px-5 py-2.5 text-[11px] tracking-[0.2em] uppercase text-charcoal hover:bg-charcoal hover:text-ivory"
+                  >
                     Reserve
                   </Link>
                 </div>
@@ -142,25 +190,41 @@ function PricingPage() {
       {/* Wedding Packages */}
       <section className="bg-charcoal text-ivory">
         <div className="mx-auto max-w-7xl px-5 py-20 md:px-10 md:py-28">
-          <div className="flex items-center gap-3"><span className="gold-rule" /><span className="text-[11px] tracking-[0.2em] uppercase text-champagne">Wedding Grooming</span></div>
-          <h2 className="mt-4 max-w-2xl font-display text-3xl md:text-5xl">The day deserves to be unhurried.</h2>
+          <div className="flex items-center gap-3">
+            <span className="gold-rule" />
+            <span className="text-[11px] tracking-[0.2em] uppercase text-champagne">
+              Wedding Grooming
+            </span>
+          </div>
+          <h2 className="mt-4 max-w-2xl font-display text-3xl md:text-5xl">
+            The day deserves to be unhurried.
+          </h2>
           <p className="mt-5 max-w-lg text-ivory/70">
             Three bespoke offers for the groom, his party, or the most private of estates.
           </p>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {groomPackages.map((g) => (
               <article key={g.name} className="border border-ivory/15 p-8">
-                <p className="text-[11px] tracking-[0.2em] uppercase text-champagne">{g.duration}</p>
+                <p className="text-[11px] tracking-[0.2em] uppercase text-champagne">
+                  {g.duration}
+                </p>
                 <h3 className="mt-4 font-display text-2xl text-ivory">{g.name}</h3>
                 <p className="mt-3 text-sm text-ivory/70">{g.body}</p>
                 <ul className="mt-6 space-y-2 text-sm text-ivory/80">
                   {g.includes.map((i) => (
-                    <li key={i} className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 text-champagne" /> {i}</li>
+                    <li key={i} className="flex items-start gap-2">
+                      <Check className="mt-0.5 h-4 w-4 text-champagne" /> {i}
+                    </li>
                   ))}
                 </ul>
                 <div className="mt-7 flex items-center justify-between border-t border-ivory/15 pt-5">
                   <span className="font-display text-2xl text-champagne">£{g.price}</span>
-                  <Link to="/contact" className="text-[11px] tracking-[0.2em] uppercase text-ivory hover:text-champagne">Enquire →</Link>
+                  <Link
+                    to="/contact"
+                    className="text-[11px] tracking-[0.2em] uppercase text-ivory hover:text-champagne"
+                  >
+                    Enquire →
+                  </Link>
                 </div>
               </article>
             ))}
@@ -177,10 +241,13 @@ function PricingPage() {
               Every pound is remembered.
             </h2>
             <p className="mt-5 max-w-md text-muted-foreground">
-              Earn {SALON_CONFIG.loyalty.pointsPerPound} points for every £1 spent.
-              Points convert quietly into perks — never asked for, always offered.
+              Earn {SALON_CONFIG.loyalty.pointsPerPound} points for every £1 spent. Points convert
+              quietly into perks — never asked for, always offered.
             </p>
-            <Link to="/loyalty" className="mt-8 inline-block rounded-full border border-charcoal px-7 py-3.5 text-[12px] tracking-[0.2em] uppercase text-charcoal hover:bg-charcoal hover:text-ivory">
+            <Link
+              to="/loyalty"
+              className="mt-8 inline-block rounded-full border border-charcoal px-7 py-3.5 text-[12px] tracking-[0.2em] uppercase text-charcoal hover:bg-charcoal hover:text-ivory"
+            >
               Discover The Glow Circle
             </Link>
           </div>
@@ -193,7 +260,9 @@ function PricingPage() {
             ].map((s) => (
               <div key={s.l} className="bg-cream p-7 text-center">
                 <p className="font-display text-3xl text-charcoal">{s.v}</p>
-                <p className="mt-1 text-xs tracking-[0.18em] uppercase text-muted-foreground">{s.l}</p>
+                <p className="mt-1 text-xs tracking-[0.18em] uppercase text-muted-foreground">
+                  {s.l}
+                </p>
               </div>
             ))}
           </div>

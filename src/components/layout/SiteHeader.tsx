@@ -8,10 +8,6 @@ import logoAsset from "@/assets/lux-glow-logo.jpeg.asset.json";
 const nav = [
   { to: "/", label: "House" },
   { to: "/services", label: "Services" },
-  { to: "/pricing", label: "Pricing" },
-  { to: "/gallery", label: "Gallery" },
-  { to: "/loyalty", label: "Circle" },
-  { to: "/blog", label: "Journal" },
   { to: "/contact", label: "Visit" },
 ];
 
@@ -55,7 +51,9 @@ export function SiteHeader() {
               to={role === "admin" ? "/admin" : "/dashboard"}
               className="flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase text-charcoal hover:text-champagne-deep"
             >
-              <span className="grid h-8 w-8 place-items-center rounded-full bg-charcoal font-display text-xs text-ivory">{initial}</span>
+              <span className="grid h-8 w-8 place-items-center rounded-full bg-charcoal font-display text-xs text-ivory">
+                {initial}
+              </span>
               {role === "admin" ? "Console" : "My Lounge"}
             </Link>
           ) : (
@@ -96,19 +94,39 @@ export function SiteHeader() {
                 {n.label}
               </Link>
             ))}
-            <Link to="/reviews" onClick={() => setOpen(false)} className="py-3 text-sm tracking-[0.2em] uppercase text-charcoal">Reviews</Link>
-            <Link to="/promotions" onClick={() => setOpen(false)} className="py-3 text-sm tracking-[0.2em] uppercase text-charcoal">Offers</Link>
             {isAuthenticated ? (
               <>
-                <Link to={role === "admin" ? "/admin" : "/dashboard"} onClick={() => setOpen(false)} className="py-3 text-sm tracking-[0.2em] uppercase text-charcoal">
+                <Link
+                  to={role === "admin" ? "/admin" : "/dashboard"}
+                  onClick={() => setOpen(false)}
+                  className="py-3 text-sm tracking-[0.2em] uppercase text-charcoal"
+                >
                   {role === "admin" ? "Admin Console" : "Members' Lounge"}
                 </Link>
-                <Link to="/auth/logout" onClick={() => setOpen(false)} className="py-3 text-sm tracking-[0.2em] uppercase text-muted-foreground">Sign Out</Link>
+                <Link
+                  to="/auth/logout"
+                  onClick={() => setOpen(false)}
+                  className="py-3 text-sm tracking-[0.2em] uppercase text-muted-foreground"
+                >
+                  Sign Out
+                </Link>
               </>
             ) : (
               <>
-                <Link to="/auth/login" onClick={() => setOpen(false)} className="py-3 text-sm tracking-[0.2em] uppercase text-charcoal">Sign In</Link>
-                <Link to="/auth/register" onClick={() => setOpen(false)} className="py-3 text-sm tracking-[0.2em] uppercase text-muted-foreground">Join</Link>
+                <Link
+                  to="/auth/login"
+                  onClick={() => setOpen(false)}
+                  className="py-3 text-sm tracking-[0.2em] uppercase text-charcoal"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/auth/register"
+                  onClick={() => setOpen(false)}
+                  className="py-3 text-sm tracking-[0.2em] uppercase text-muted-foreground"
+                >
+                  Create account
+                </Link>
               </>
             )}
             <Link

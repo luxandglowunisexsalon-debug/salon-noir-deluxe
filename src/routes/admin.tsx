@@ -2,29 +2,38 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { BookingDiary } from "@/components/admin/BookingDiary";
+import { ServicesManager } from "@/components/admin/ServicesManager";
 
 import { useAuth } from "@/lib/auth-context";
 import { ACCESS_LEVELS } from "@/lib/auth-types";
 import { SALON_CONFIG } from "@/lib/salon-config";
 import {
   adminMetrics,
-
   adminCustomers,
   adminReviews,
   popularServices,
   services,
 } from "@/lib/mock-data";
 import {
-  LayoutDashboard, Calendar, Users, Star, Gift, Tag, Scissors,
-  Image as ImageIcon, Instagram, Settings, TrendingUp, ShieldCheck, LogOut, Mail,
+  LayoutDashboard,
+  Calendar,
+  Users,
+  Star,
+  Gift,
+  Tag,
+  Scissors,
+  Image as ImageIcon,
+  Instagram,
+  Settings,
+  TrendingUp,
+  ShieldCheck,
+  LogOut,
+  Mail,
 } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
-    meta: [
-      { title: `Admin — ${SALON_CONFIG.name}` },
-      { name: "robots", content: "noindex" },
-    ],
+    meta: [{ title: `Admin — ${SALON_CONFIG.name}` }, { name: "robots", content: "noindex" }],
   }),
   component: () => (
     <ProtectedRoute role="admin">
@@ -36,14 +45,7 @@ export const Route = createFileRoute("/admin")({
 const tabs = [
   { id: "overview", label: "Overview", icon: LayoutDashboard },
   { id: "bookings", label: "Bookings", icon: Calendar },
-  { id: "customers", label: "Customers", icon: Users },
-  { id: "reviews", label: "Reviews", icon: Star },
-  { id: "loyalty", label: "Loyalty", icon: Gift },
-  { id: "discounts", label: "Promotions", icon: Tag },
   { id: "pricing", label: "Pricing", icon: Scissors },
-  { id: "gallery", label: "Gallery", icon: ImageIcon },
-  { id: "instagram", label: "Instagram", icon: Instagram },
-  { id: "admins", label: "Admin Access", icon: ShieldCheck },
   { id: "settings", label: "Settings", icon: Settings },
 ] as const;
 
@@ -59,7 +61,9 @@ function AdminDashboard() {
       {/* Sidebar */}
       <aside className="hidden w-64 shrink-0 border-r border-border bg-cream md:flex md:flex-col">
         <div className="border-b border-border px-6 py-6">
-          <Link to="/" className="font-display text-lg text-charcoal">{SALON_CONFIG.name}</Link>
+          <Link to="/" className="font-display text-lg text-charcoal">
+            {SALON_CONFIG.name}
+          </Link>
           <p className="eyebrow mt-1">Admin Console</p>
         </div>
         <nav className="flex-1 p-3">
@@ -85,7 +89,10 @@ function AdminDashboard() {
             <h1 className="font-display text-2xl text-charcoal capitalize">{tab}</h1>
           </div>
           <div className="flex items-center gap-3">
-            <Link to="/" className="text-xs tracking-[0.2em] uppercase text-muted-foreground hover:text-charcoal">
+            <Link
+              to="/"
+              className="text-xs tracking-[0.2em] uppercase text-muted-foreground hover:text-charcoal"
+            >
               View Site →
             </Link>
             <button
@@ -94,7 +101,12 @@ function AdminDashboard() {
             >
               <LogOut className="h-3.5 w-3.5" /> Sign out
             </button>
-            <div className="grid h-9 w-9 place-items-center rounded-full bg-charcoal font-display text-sm text-ivory" title={session?.profile.full_name}>{initial}</div>
+            <div
+              className="grid h-9 w-9 place-items-center rounded-full bg-charcoal font-display text-sm text-ivory"
+              title={session?.profile.full_name}
+            >
+              {initial}
+            </div>
           </div>
         </header>
 
@@ -116,14 +128,7 @@ function AdminDashboard() {
         <main className="px-5 py-8 md:px-10 md:py-10">
           {tab === "overview" && <Overview />}
           {tab === "bookings" && <BookingsTab />}
-          {tab === "customers" && <CustomersTab />}
-          {tab === "reviews" && <ReviewsTab />}
-          {tab === "loyalty" && <LoyaltyTab />}
-          {tab === "discounts" && <DiscountsTab />}
           {tab === "pricing" && <PricingTab />}
-          {tab === "gallery" && <GalleryTab />}
-          {tab === "instagram" && <InstagramTab />}
-          {tab === "admins" && <AdminsTab />}
           {tab === "settings" && <SettingsTab />}
         </main>
       </div>
@@ -136,10 +141,26 @@ function Overview() {
   return (
     <div className="space-y-8">
       <div className="grid gap-5 md:grid-cols-4">
-        <Metric label="Monthly revenue" value={`£${m.monthlyRevenue.toLocaleString()}`} delta={`+${m.monthlyRevenueDelta}%`} />
-        <Metric label="Bookings" value={m.totalBookings.toString()} delta={`+${m.totalBookingsDelta}%`} />
-        <Metric label="Returning customers" value={`${m.returningCustomers}%`} delta="of all visits" />
-        <Metric label="Loyalty members" value={m.loyaltyMembers.toLocaleString()} delta={`★ ${m.satisfaction} avg`} />
+        <Metric
+          label="Monthly revenue"
+          value={`£${m.monthlyRevenue.toLocaleString()}`}
+          delta={`+${m.monthlyRevenueDelta}%`}
+        />
+        <Metric
+          label="Bookings"
+          value={m.totalBookings.toString()}
+          delta={`+${m.totalBookingsDelta}%`}
+        />
+        <Metric
+          label="Returning customers"
+          value={`${m.returningCustomers}%`}
+          delta="of all visits"
+        />
+        <Metric
+          label="Loyalty members"
+          value={m.loyaltyMembers.toLocaleString()}
+          delta={`★ ${m.satisfaction} avg`}
+        />
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">
@@ -154,9 +175,12 @@ function Overview() {
               return (
                 <li key={s.name}>
                   <div className="flex justify-between text-sm text-charcoal">
-                    <span>{s.name}</span><span className="text-muted-foreground">{s.bookings}</span>
+                    <span>{s.name}</span>
+                    <span className="text-muted-foreground">{s.bookings}</span>
                   </div>
-                  <div className="mt-1.5 h-1 w-full bg-cream"><div className="h-full bg-gold" style={{ width: `${w}%` }} /></div>
+                  <div className="mt-1.5 h-1 w-full bg-cream">
+                    <div className="h-full bg-gold" style={{ width: `${w}%` }} />
+                  </div>
                 </li>
               );
             })}
@@ -167,7 +191,6 @@ function Overview() {
       <Card title="Today's chair">
         <BookingDiary compact />
       </Card>
-
     </div>
   );
 }
@@ -177,11 +200,17 @@ function SparkChart() {
   const max = Math.max(...data);
   return (
     <div>
-      <p className="font-display text-3xl text-charcoal">£42,860 <span className="text-sm text-gold">▲ 12.4%</span></p>
+      <p className="font-display text-3xl text-charcoal">
+        £42,860 <span className="text-sm text-gold">▲ 12.4%</span>
+      </p>
       <p className="eyebrow mt-1">Last 12 weeks</p>
       <div className="mt-6 flex h-44 items-end gap-2">
         {data.map((v, i) => (
-          <div key={i} className="flex-1 bg-charcoal/85 transition hover:bg-gold" style={{ height: `${(v / max) * 100}%` }} />
+          <div
+            key={i}
+            className="flex-1 bg-charcoal/85 transition hover:bg-gold"
+            style={{ height: `${(v / max) * 100}%` }}
+          />
         ))}
       </div>
     </div>
@@ -192,20 +221,29 @@ function BookingsTab() {
   return <BookingDiary />;
 }
 
-
 function CustomersTab() {
   return (
     <Card title="Customers">
       <div className="overflow-x-auto">
         <table className="w-full min-w-[600px] text-sm">
           <thead className="text-left text-xs uppercase tracking-[0.18em] text-muted-foreground">
-            <tr><th className="py-3">Name</th><th>Tier</th><th>Visits</th><th>Total spend</th><th>Last visit</th></tr>
+            <tr>
+              <th className="py-3">Name</th>
+              <th>Tier</th>
+              <th>Visits</th>
+              <th>Total spend</th>
+              <th>Last visit</th>
+            </tr>
           </thead>
           <tbody className="divide-y divide-border">
             {adminCustomers.map((c) => (
               <tr key={c.name}>
                 <td className="py-4 text-charcoal">{c.name}</td>
-                <td><span className="rounded-full bg-cream px-3 py-1 text-[11px] tracking-[0.15em] uppercase">{c.tier}</span></td>
+                <td>
+                  <span className="rounded-full bg-cream px-3 py-1 text-[11px] tracking-[0.15em] uppercase">
+                    {c.tier}
+                  </span>
+                </td>
                 <td className="text-muted-foreground">{c.visits}</td>
                 <td className="font-display text-charcoal">£{c.spend.toLocaleString()}</td>
                 <td className="text-muted-foreground">{c.last}</td>
@@ -229,7 +267,9 @@ function ReviewsTab() {
               <span className="text-xs text-muted-foreground">{r.date} ago</span>
             </div>
             <div className="mt-1 flex gap-0.5 text-gold">
-              {Array.from({ length: r.rating }).map((_, j) => <Star key={j} className="h-3 w-3 fill-current" />)}
+              {Array.from({ length: r.rating }).map((_, j) => (
+                <Star key={j} className="h-3 w-3 fill-current" />
+              ))}
             </div>
             <p className="mt-3 font-serif text-lg italic text-charcoal">"{r.text}"</p>
           </li>
@@ -244,13 +284,19 @@ function LoyaltyTab() {
     <div className="grid gap-6 lg:grid-cols-2">
       <Card title="Programme settings">
         <Field label="Programme name" defaultValue={SALON_CONFIG.loyalty.name} />
-        <Field label="Points per £1 spent" defaultValue={SALON_CONFIG.loyalty.pointsPerPound.toString()} />
+        <Field
+          label="Points per £1 spent"
+          defaultValue={SALON_CONFIG.loyalty.pointsPerPound.toString()}
+        />
         <SaveBar />
       </Card>
       <Card title="Tiers">
         <ul className="space-y-3">
           {SALON_CONFIG.loyalty.tiers.map((t) => (
-            <li key={t.name} className="flex items-center justify-between border-b border-border pb-3">
+            <li
+              key={t.name}
+              className="flex items-center justify-between border-b border-border pb-3"
+            >
               <div>
                 <p className="font-display text-charcoal">{t.name}</p>
                 <p className="text-xs text-muted-foreground">From {t.min} pts</p>
@@ -282,27 +328,7 @@ function DiscountsTab() {
 }
 
 function PricingTab() {
-  return (
-    <Card title="Service pricing">
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[500px] text-sm">
-          <thead className="text-left text-xs uppercase tracking-[0.18em] text-muted-foreground">
-            <tr><th className="py-3">Service</th><th>Duration</th><th>Price (£)</th><th></th></tr>
-          </thead>
-          <tbody className="divide-y divide-border">
-            {services.map((s) => (
-              <tr key={s.id}>
-                <td className="py-3 text-charcoal">{s.name}</td>
-                <td className="text-muted-foreground">{s.duration}</td>
-                <td><input defaultValue={s.price} className="w-20 border border-border bg-ivory px-2 py-1.5 text-sm" /></td>
-                <td className="text-right text-[11px] tracking-[0.2em] uppercase text-gold">Edit</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </Card>
-  );
+  return <ServicesManager />;
 }
 
 function GalleryTab() {
@@ -314,7 +340,9 @@ function GalleryTab() {
             <img src={s.image} alt={s.name} className="h-full w-full object-cover" />
           </div>
         ))}
-        <div className="grid aspect-square place-items-center border border-dashed border-champagne text-sm text-gold">+ Upload</div>
+        <div className="grid aspect-square place-items-center border border-dashed border-champagne text-sm text-gold">
+          + Upload
+        </div>
       </div>
     </Card>
   );
@@ -352,8 +380,14 @@ function SettingsTab() {
       <Card title="Opening hours">
         {SALON_CONFIG.hours.map((h) => (
           <div key={h.day} className="grid grid-cols-2 gap-3 py-2">
-            <input defaultValue={h.day} className="border border-border bg-ivory px-3 py-2 text-sm" />
-            <input defaultValue={h.time} className="border border-border bg-ivory px-3 py-2 text-sm" />
+            <input
+              defaultValue={h.day}
+              className="border border-border bg-ivory px-3 py-2 text-sm"
+            />
+            <input
+              defaultValue={h.time}
+              className="border border-border bg-ivory px-3 py-2 text-sm"
+            />
           </div>
         ))}
         <SaveBar />
@@ -375,7 +409,15 @@ function SettingsTab() {
   );
 }
 
-function Card({ title, className = "", children }: { title: string; className?: string; children: React.ReactNode }) {
+function Card({
+  title,
+  className = "",
+  children,
+}: {
+  title: string;
+  className?: string;
+  children: React.ReactNode;
+}) {
   return (
     <section className={`bg-card p-6 shadow-soft md:p-8 ${className}`}>
       <div className="flex items-center justify-between border-b border-border pb-4">
@@ -401,7 +443,10 @@ function Field({ label, defaultValue }: { label: string; defaultValue: string })
   return (
     <label className="block py-2">
       <span className="eyebrow">{label}</span>
-      <input defaultValue={defaultValue} className="mt-2 w-full border border-border bg-ivory px-3 py-2.5 text-sm outline-none focus:border-charcoal" />
+      <input
+        defaultValue={defaultValue}
+        className="mt-2 w-full border border-border bg-ivory px-3 py-2.5 text-sm outline-none focus:border-charcoal"
+      />
     </label>
   );
 }
@@ -409,8 +454,12 @@ function Field({ label, defaultValue }: { label: string; defaultValue: string })
 function SaveBar() {
   return (
     <div className="mt-5 flex justify-end gap-2 border-t border-border pt-4">
-      <button className="rounded-full border border-border px-5 py-2 text-[11px] tracking-[0.2em] uppercase text-charcoal">Discard</button>
-      <button className="rounded-full bg-charcoal px-5 py-2 text-[11px] tracking-[0.2em] uppercase text-ivory">Save Changes</button>
+      <button className="rounded-full border border-border px-5 py-2 text-[11px] tracking-[0.2em] uppercase text-charcoal">
+        Discard
+      </button>
+      <button className="rounded-full bg-charcoal px-5 py-2 text-[11px] tracking-[0.2em] uppercase text-ivory">
+        Save Changes
+      </button>
     </div>
   );
 }
@@ -444,8 +493,14 @@ function AdminsTab() {
               placeholder="name@hawthorneandvale.co.uk"
               className="w-full border border-border bg-ivory px-3 py-2.5 text-sm outline-none focus:border-charcoal"
             />
-            <select value={level} onChange={(e) => setLevel(e.target.value)} className="border border-border bg-ivory px-3 py-2.5 text-sm">
-              {ACCESS_LEVELS.map((l) => <option key={l.level}>{l.level}</option>)}
+            <select
+              value={level}
+              onChange={(e) => setLevel(e.target.value)}
+              className="border border-border bg-ivory px-3 py-2.5 text-sm"
+            >
+              {ACCESS_LEVELS.map((l) => (
+                <option key={l.level}>{l.level}</option>
+              ))}
             </select>
           </div>
           <button className="inline-flex items-center gap-2 rounded-full bg-charcoal px-5 py-2.5 text-[11px] tracking-[0.2em] uppercase text-ivory">
@@ -457,12 +512,17 @@ function AdminsTab() {
           <p className="eyebrow mb-3">Access levels</p>
           <ul className="space-y-3">
             {ACCESS_LEVELS.map((l) => (
-              <li key={l.level} className="flex items-start justify-between gap-4 border-b border-border pb-3 last:border-0">
+              <li
+                key={l.level}
+                className="flex items-start justify-between gap-4 border-b border-border pb-3 last:border-0"
+              >
                 <div>
                   <p className="font-display text-charcoal">{l.level}</p>
                   <p className="mt-1 text-xs text-muted-foreground">{l.description}</p>
                 </div>
-                <span className="shrink-0 text-[11px] tracking-[0.18em] uppercase text-gold">{l.permissions} perms</span>
+                <span className="shrink-0 text-[11px] tracking-[0.18em] uppercase text-gold">
+                  {l.permissions} perms
+                </span>
               </li>
             ))}
           </ul>
@@ -472,14 +532,23 @@ function AdminsTab() {
       <Card title="Active & pending admins">
         <ul className="space-y-3">
           {invites.map((i) => (
-            <li key={i.email} className="flex items-center justify-between gap-3 border-b border-border pb-3 last:border-0">
+            <li
+              key={i.email}
+              className="flex items-center justify-between gap-3 border-b border-border pb-3 last:border-0"
+            >
               <div className="min-w-0">
                 <p className="truncate font-display text-sm text-charcoal">{i.email}</p>
-                <p className="text-[11px] tracking-[0.18em] uppercase text-muted-foreground">{i.level}</p>
+                <p className="text-[11px] tracking-[0.18em] uppercase text-muted-foreground">
+                  {i.level}
+                </p>
               </div>
-              <span className={`shrink-0 rounded-full px-3 py-1 text-[10px] tracking-[0.18em] uppercase ${
-                i.status === "active" ? "bg-cream text-charcoal" : "bg-gold text-charcoal"
-              }`}>{i.status}</span>
+              <span
+                className={`shrink-0 rounded-full px-3 py-1 text-[10px] tracking-[0.18em] uppercase ${
+                  i.status === "active" ? "bg-cream text-charcoal" : "bg-gold text-charcoal"
+                }`}
+              >
+                {i.status}
+              </span>
             </li>
           ))}
         </ul>
